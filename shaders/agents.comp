@@ -1,0 +1,110 @@
+#version 460 core
+#define TWO_PI 6.2831853
+
+struct Agent {
+    float x, y;
+    float angle;
+    bool shouldTurn;
+};
+
+layout (local_size_x = 64, local_size_y = 1, local_size_z = 1) in;
+layout (rgba32f, binding = 0) uniform image2D imageOutput;
+layout (std430, binding = 2) buffer Agents {
+    Agent agents[];
+};
+uniform float deltaTime;
+uniform vec4 color;
+
+ivec2 size = imageSize(imageOutput);
+const float speed = 80.0;
+const float turnSpeed = 100.0;
+const float sensorOffsetDst = 16.0;
+const float sensorAngleSpacing = 0.6;
+const int sensorSize = 3;
+
+// Hash function www.cs.ubc.ca/~rbridson/docs/schechter-sca08-turbulence.pdf
+uint hash(uint state) {
+    // Only here to remove casting error
+    state ^= uint(2747636419);
+    state *= 2654435769;
+    state ^= state >> 16;
+    state *= 2654435769;
+    state ^= state >> 16;
+    state *= 2654435769;
+    return state;
+}
+
+float scaleTo01(uint random) {
+    return float(random) / 4294967295.0;
+}
+
+float sense(Agent agent, float sensorAngleOffset){
+    float sensorAngle = agent.angle + sensorAngleOffset;
+    vec2 sensorDir = vec2(cos(sensorAngle), sin(sensorAngle));
+    ivec2 sensorCenter = ivec2(vec2(agent.x, agent.y) + sensorDir * sensorOffsetDst);
+    float sum = 0.0;
+
+    for (int x_off = -sensorSize; x_off <= sensorSize; x_off++)
+    for (int y_off = -sensorSize; y_off <= sensorSize; y_off++)
+    {
+        ivec2 pos = sensorCenter + ivec2(x_off, y_off);
+        if (pos.x >= 0 && pos.x < size.x && pos.y >= 0 && pos.y < size.y)
+        sum += dot(imageLoad(imageOutput, pos), vec4(1.0) * 2 - 1);
+    }
+
+    return sum;
+}
+
+void main() {
+    uint index = gl_GlobalInvocationID.x;
+    Agent agent = agents[index];
+
+    float forwardWeight = sense(agent, 0);
+    float leftWeight = sense(agent, 0.6);
+    float rightWeight = sense(agent, -0.6);
+
+    uint randomSteer = hash(uint(agent.y * size.y + agent.x + hash(index)));
+    float steerStrength = scaleTo01(randomSteer);
+
+    if (agent.shouldTurn) {
+        if (forwardWeight > leftWeight && forwardWeight > rightWeight) {
+            agents[index].angle = agents[index].angle;
+        } else if (forwardWeight < leftWeight && forwardWeight < rightWeight) {
+            agents[index].angle += (steerStrength - 0.5) * 2 * turnSpeed * deltaTime;
+        } else if (rightWeight > leftWeight) {
+            agents[index].angle -= steerStrength * turnSpeed * deltaTime;
+        } else if (leftWeight > rightWeight) {
+            agents[index].angle += steerStrength * turnSpeed * deltaTime;
+        }
+    }
+
+    vec2 position = vec2(agent.x, agent.y);
+    vec2 direction = vec2(cos(agent.angle), sin(agent.angle));
+    position += direction * speed * deltaTime;
+
+    // start turning if past certain point x, y
+    //    if (position.x > 2 * (size.x / 3) || position.x < (size.x / 3) || position.y > 2 * (size.y / 3) || position.y < (size.y / 3)) {
+    //        agents[index].shouldTurn = true;
+    //    }
+
+    // Handle collisions with sides of screen
+    if (position.x < 0 || position.x >= size.x || position.y < 0 || position.y >= size.y) {
+        position.x = min(size.x - 0.01, max(0, position.x));
+        position.y = min(size.y - 0.01, max(0, position.y));
+        uint randomAngle = hash(uint(agent.y * size.y + agent.x + hash(index)));
+        agents[index].angle = scaleTo01(randomAngle) * TWO_PI;
+        //        agents[index].shouldTurn = true;
+    }
+
+
+    agents[index].x = position.x;
+    agents[index].y = position.y;
+
+    vec4 lightBlue = vec4(0.478, 0.843, 0.941, 1.0);
+    vec4 white = vec4(1.0);
+
+    imageStore(imageOutput, ivec2(agent.x, agent.y), white);
+}
+
+
+
