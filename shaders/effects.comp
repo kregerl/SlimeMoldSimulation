@@ -6,7 +6,7 @@ layout (binding = 0, rgba32f) uniform writeonly image2D imageOutput;
 
 uniform float deltaTime;
 const float diffuseSpeed = 10.0;
-const float evapSpeed = 0.9;
+const float evapSpeed = 0.4;
 
 void main() {
     ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
@@ -27,7 +27,7 @@ void main() {
     vec4 diffusedBlur = mix(original, blur, diffuseSpeed * deltaTime);
     vec4 evaporatedAndDiffusedBlur = diffusedBlur - evapSpeed * deltaTime;
 
-    //    vec4 processedValue = vec4(evap.r - 0.1, evap.g - 0.015, evap.b -0.01, 1.0);
+//    vec4 processedValue = vec4(evaporatedAndDiffusedBlur.r, evaporatedAndDiffusedBlur.g - 0.015, evaporatedAndDiffusedBlur.b, evaporatedAndDiffusedBlur.a);
 
     imageStore(imageOutput, coords, evaporatedAndDiffusedBlur);
 }

@@ -5,7 +5,7 @@
 		<Option title="SlimeMoldSimulation"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\imgui\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug"/>
@@ -45,6 +45,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/loucas/CLionProjects/SlimeMoldSimulation/include"/>
+					<Add directory="/home/loucas/CLionProjects/SlimeMoldSimulation"/>
 					<Add directory="/usr/include/c++/9"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 					<Add directory="/usr/include/c++/9/backward"/>
@@ -68,6 +69,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/loucas/CLionProjects/SlimeMoldSimulation/include"/>
+					<Add directory="/home/loucas/CLionProjects/SlimeMoldSimulation"/>
 					<Add directory="/usr/include/c++/9"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 					<Add directory="/usr/include/c++/9/backward"/>
@@ -83,6 +85,52 @@
 					<DistClean command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="imgui">
+				<Option output="/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/libimgui.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/loucas/CLionProjects/SlimeMoldSimulation/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/Makefile&quot;  VERBOSE=1 imgui"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="imgui/fast">
+				<Option output="/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/libimgui.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/loucas/CLionProjects/SlimeMoldSimulation/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/Makefile&quot;  VERBOSE=1 imgui/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 		</Build>
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/ComputeShader.h">
 			<Option target="SlimeMoldSimulation"/>
@@ -91,6 +139,12 @@
 			<Option target="SlimeMoldSimulation"/>
 		</Unit>
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/Framebuffer.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.h">
 			<Option target="SlimeMoldSimulation"/>
 		</Unit>
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/Shader.h">
@@ -123,11 +177,59 @@
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/glad.c">
 			<Option target="SlimeMoldSimulation"/>
 		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imconfig.h">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui.cpp">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui.h">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_demo.cpp">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_draw.cpp">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_impl_glfw.cpp">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_impl_glfw.h">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_impl_opengl3.cpp">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_impl_opengl3.h">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_internal.h">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_tables.cpp">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imgui_widgets.cpp">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imstb_rectpack.h">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imstb_textedit.h">
+			<Option target="imgui"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imstb_truetype.h">
+			<Option target="imgui"/>
+		</Unit>
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/main.cpp">
 			<Option target="SlimeMoldSimulation"/>
 		</Unit>
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\imgui\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

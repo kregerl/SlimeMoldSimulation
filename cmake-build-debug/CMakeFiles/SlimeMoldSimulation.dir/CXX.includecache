@@ -6,6 +6,36 @@
 
 #IncludeRegexTransform: 
 
+../imgui/imconfig.h
+
+../imgui/imgui.h
+imconfig.h
+../imgui/imconfig.h
+float.h
+-
+stdarg.h
+-
+stddef.h
+-
+string.h
+-
+assert.h
+-
+stdint.h
+-
+imgui_user.h
+../imgui/imgui_user.h
+
+../imgui/imgui_impl_glfw.h
+imgui.h
+../imgui/imgui.h
+
+../imgui/imgui_impl_opengl3.h
+imgui.h
+../imgui/imgui.h
+TargetConditionals.h
+../imgui/TargetConditionals.h
+
 ../include/KHR/khrplatform.h
 stdint.h
 -
@@ -28,6 +58,22 @@ sstream
 string
 -
 
+/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.cpp
+Settings.h
+/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.h
+
+/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.h
+imgui/imgui.h
+-
+imgui/imgui_impl_glfw.h
+-
+imgui/imgui_impl_opengl3.h
+-
+glm/vec4.hpp
+-
+Window.h
+/home/loucas/CLionProjects/SlimeMoldSimulation/Window.h
+
 /home/loucas/CLionProjects/SlimeMoldSimulation/Shader.h
 glm/glm.hpp
 -
@@ -47,6 +93,8 @@ Simulation.h
 /home/loucas/CLionProjects/SlimeMoldSimulation/Simulation.h
 glad/glad.h
 -
+glm/gtc/matrix_transform.hpp
+-
 vector
 -
 random
@@ -57,6 +105,8 @@ sys/random.h
 -
 Window.h
 /home/loucas/CLionProjects/SlimeMoldSimulation/Window.h
+Settings.h
+/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.h
 Shader.h
 /home/loucas/CLionProjects/SlimeMoldSimulation/Shader.h
 ComputeShader.h
@@ -69,6 +119,8 @@ Sprite.h
 /home/loucas/CLionProjects/SlimeMoldSimulation/Sprite.h
 glad/glad.h
 -
+glm/glm.hpp
+-
 glm/vec4.hpp
 -
 
@@ -77,10 +129,6 @@ glad/glad.h
 -
 iostream
 -
-
-/home/loucas/CLionProjects/SlimeMoldSimulation/Window.cpp
-Window.h
-/home/loucas/CLionProjects/SlimeMoldSimulation/Window.h
 
 /home/loucas/CLionProjects/SlimeMoldSimulation/Window.h
 glad/glad.h

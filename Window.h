@@ -16,7 +16,7 @@ public:
 
     void close();
 
-    void unuse();
+    void poll();
 
     bool shouldClose();
 
@@ -28,6 +28,8 @@ public:
 
     bool isPaused() { return this->m_isPaused; }
 
+    GLFWwindow *getWindow() { return this->m_window; }
+
 private:
     bool m_isPaused = false;
     const int m_width, m_height;
@@ -35,6 +37,7 @@ private:
     GLFWwindow *m_window;
 
     void processInput();
+
 };
 
 

@@ -13,18 +13,18 @@ layout (std430, binding = 2) buffer Agents {
     Agent agents[];
 };
 uniform float deltaTime;
+uniform float speed;
+uniform float turnSpeed;
+uniform float sensorOffsetDistance;
+uniform float sensorAngle;
+uniform int sensorSize;
 uniform vec4 color;
 
 ivec2 size = imageSize(imageOutput);
-const float speed = 80.0;
-const float turnSpeed = 100.0;
-const float sensorOffsetDst = 16.0;
-const float sensorAngleSpacing = 0.6;
-const int sensorSize = 3;
 
 // Hash function www.cs.ubc.ca/~rbridson/docs/schechter-sca08-turbulence.pdf
 uint hash(uint state) {
-    // Only here to remove casting error
+    // Only here to remove casting error but runs fine without it.
     state ^= uint(2747636419);
     state *= 2654435769;
     state ^= state >> 16;
@@ -41,7 +41,7 @@ float scaleTo01(uint random) {
 float sense(Agent agent, float sensorAngleOffset){
     float sensorAngle = agent.angle + sensorAngleOffset;
     vec2 sensorDir = vec2(cos(sensorAngle), sin(sensorAngle));
-    ivec2 sensorCenter = ivec2(vec2(agent.x, agent.y) + sensorDir * sensorOffsetDst);
+    ivec2 sensorCenter = ivec2(vec2(agent.x, agent.y) + sensorDir * sensorOffsetDistance);
     float sum = 0.0;
 
     for (int x_off = -sensorSize; x_off <= sensorSize; x_off++)
@@ -93,17 +93,14 @@ void main() {
         position.y = min(size.y - 0.01, max(0, position.y));
         uint randomAngle = hash(uint(agent.y * size.y + agent.x + hash(index)));
         agents[index].angle = scaleTo01(randomAngle) * TWO_PI;
-        //        agents[index].shouldTurn = true;
+        agents[index].shouldTurn = true;
     }
 
 
     agents[index].x = position.x;
     agents[index].y = position.y;
 
-    vec4 lightBlue = vec4(0.478, 0.843, 0.941, 1.0);
-    vec4 white = vec4(1.0);
-
-    imageStore(imageOutput, ivec2(agent.x, agent.y), white);
+    imageStore(imageOutput, ivec2(agent.x, agent.y), color);
 }
 
 

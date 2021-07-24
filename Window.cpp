@@ -1,5 +1,9 @@
 #include "Window.h"
 
+static void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+    glViewport(0, 0, 1280 * 2, 720 * 2);
+}
+
 Window::Window(const int width, const int height, const std::string &title) : m_width(width),
                                                                               m_height(height) {
     glfwInit();
@@ -14,7 +18,7 @@ Window::Window(const int width, const int height, const std::string &title) : m_
         glfwTerminate();
     }
     glfwMakeContextCurrent(this->m_window);
-//    glfwSetFramebufferSizeCallback(this->m_window, framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(this->m_window, framebuffer_size_callback);
 //    glfwSetWindowSizeCallback(this->m_window, window_resize_callback);
 
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
@@ -39,11 +43,12 @@ void Window::use() {
 }
 
 void Window::close() {
+    glfwDestroyWindow(this->m_window);
     glfwTerminate();
 }
 
 
-void Window::unuse() {
+void Window::poll() {
     glfwSwapBuffers(this->m_window);
     glfwPollEvents();
 }
@@ -67,6 +72,7 @@ bool Window::shouldClose() {
 void Window::processInput() {
     if (glfwGetKey(this->m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(this->m_window, true);
-    if (glfwGetKey(this->m_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(this->m_window, GLFW_KEY_SPACE) == GLFW_PRESS && m_isPaused)
         this->m_isPaused = !m_isPaused;
 }
+

@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o"
+  "CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o"
   "CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o"
   "CMakeFiles/SlimeMoldSimulation.dir/Sprite.cpp.o"
   "CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o"

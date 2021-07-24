@@ -142,6 +142,19 @@ SlimeMoldSimulation/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/build
 .PHONY : SlimeMoldSimulation/fast
 
+#=============================================================================
+# Target rules for targets named imgui
+
+# Build rule for target.
+imgui: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 imgui
+.PHONY : imgui
+
+# fast build rule for target.
+imgui/fast:
+	$(MAKE) $(MAKESILENT) -f imgui/CMakeFiles/imgui.dir/build.make imgui/CMakeFiles/imgui.dir/build
+.PHONY : imgui/fast
+
 Framebuffer.o: Framebuffer.cpp.o
 
 .PHONY : Framebuffer.o
@@ -168,6 +181,33 @@ Framebuffer.s: Framebuffer.cpp.s
 Framebuffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.s
 .PHONY : Framebuffer.cpp.s
+
+Settings.o: Settings.cpp.o
+
+.PHONY : Settings.o
+
+# target to build an object file
+Settings.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o
+.PHONY : Settings.cpp.o
+
+Settings.i: Settings.cpp.i
+
+.PHONY : Settings.i
+
+# target to preprocess a source file
+Settings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.i
+.PHONY : Settings.cpp.i
+
+Settings.s: Settings.cpp.s
+
+.PHONY : Settings.s
+
+# target to generate assembly for a file
+Settings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.s
+.PHONY : Settings.cpp.s
 
 Simulation.o: Simulation.cpp.o
 
@@ -340,9 +380,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... SlimeMoldSimulation"
+	@echo "... imgui"
 	@echo "... Framebuffer.o"
 	@echo "... Framebuffer.i"
 	@echo "... Framebuffer.s"
+	@echo "... Settings.o"
+	@echo "... Settings.i"
+	@echo "... Settings.s"
 	@echo "... Simulation.o"
 	@echo "... Simulation.i"
 	@echo "... Simulation.s"

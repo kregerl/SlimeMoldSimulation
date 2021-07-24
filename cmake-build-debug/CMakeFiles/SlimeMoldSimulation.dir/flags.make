@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/home/loucas/CLionProjects/SlimeMoldSimulation/include
+C_INCLUDES = -I/home/loucas/CLionProjects/SlimeMoldSimulation/include -I/home/loucas/CLionProjects/SlimeMoldSimulation
 
 C_FLAGS = -g
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/loucas/CLionProjects/SlimeMoldSimulation/include
+CXX_INCLUDES = -I/home/loucas/CLionProjects/SlimeMoldSimulation/include -I/home/loucas/CLionProjects/SlimeMoldSimulation
 
 CXX_FLAGS = -g -std=gnu++17
 
