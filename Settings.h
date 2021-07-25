@@ -8,8 +8,7 @@
 #include "Window.h"
 
 #define GLSL_VERSION "#version 460 core"
-#define AGENT_PICKER_SIZE 4
-#define EFFECT_PICKER_SIZE 3
+#define PICKER_SIZE 3
 
 
 class Settings {
@@ -25,7 +24,11 @@ public:
 
     static void shutdown();
 
-    glm::vec4 getColor();
+    [[maybe_unused]] [[nodiscard]]
+    glm::vec3 getColor() const;
+
+    [[maybe_unused]] [[nodiscard]]
+    glm::vec3 getColorMod() const;
 
     [[maybe_unused]] [[nodiscard]]
     float getSpeed() const;
@@ -40,6 +43,12 @@ public:
     float getSensorAngle() const;
 
     [[maybe_unused]] [[nodiscard]]
+    float getDiffuseSpeed() const;
+
+    [[maybe_unused]] [[nodiscard]]
+    float getEvaporateSpeed() const;
+
+    [[maybe_unused]] [[nodiscard]]
     int getSensorSize() const;
 
     [[maybe_unused]] [[nodiscard]]
@@ -49,13 +58,14 @@ public:
 private:
     bool m_showWindow = true;
     bool m_blur = true;
-    bool m_evaporate = true;
-    float m_agentColor[AGENT_PICKER_SIZE]{};
-    float m_effectColor[EFFECT_PICKER_SIZE]{};
+    float m_agentColor[PICKER_SIZE]{};
+    float m_effectColor[PICKER_SIZE]{};
     float m_simulationSpeed = 80.0f;
     float m_turnSpeed = 100.0f;
     float m_sensorOffsetDistance = 16.0f;
     float m_sensorAngle = 0.6f;
+    float m_diffuseSpeed = 10.0;
+    float m_evaporateSpeed = 0.4f;
     int m_sensorSize = 3;
 };
 

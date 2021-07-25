@@ -1,3 +1,4 @@
+#include <glm/vec3.hpp>
 #include "Settings.h"
 
 
@@ -10,8 +11,8 @@ Settings::Settings(Window *window) {
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window->getWindow(), true);
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
-    std::fill(this->m_agentColor, this->m_agentColor + AGENT_PICKER_SIZE, 1);
-    std::fill(this->m_effectColor, this->m_effectColor + EFFECT_PICKER_SIZE, 1);
+    std::fill(this->m_agentColor, this->m_agentColor + PICKER_SIZE, 1);
+    std::fill(this->m_effectColor, this->m_effectColor + PICKER_SIZE, 0);
 
 }
 
@@ -26,7 +27,7 @@ void Settings::init() {
     if (this->m_showWindow) {
         ImGui::Begin("Settings", &this->m_showWindow);
 
-        ImGui::ColorEdit4("Color", this->m_agentColor);
+        ImGui::ColorEdit3("Color", this->m_agentColor);
 
         ImGui::Button("Play");
         ImGui::SameLine();
@@ -36,9 +37,9 @@ void Settings::init() {
 
         if (ImGui::CollapsingHeader("Effect Settings")) {
             ImGui::Checkbox("Blur", &this->m_blur);
-            ImGui::SameLine();
-            ImGui::Checkbox("Evaporate", &this->m_evaporate);
-            if (this->m_blur || this->m_evaporate) {
+            ImGui::SliderFloat("Diffuse Speed", &this->m_diffuseSpeed, 0.0f, 25.0f);
+            ImGui::SliderFloat("Evaporate Speed", &this->m_evaporateSpeed, 0.0f, 2.0f);
+            if (this->m_blur && this->m_diffuseSpeed > 0 && this->m_evaporateSpeed > 0) {
                 ImGui::ColorEdit3("Color Mod", this->m_effectColor,
                                   ImGuiColorEditFlags_NoPicker | ImGuiColorEditFlags_Float);
             }
@@ -73,10 +74,13 @@ void Settings::shutdown() {
     ImGui::DestroyContext();
 }
 
-glm::vec4 Settings::getColor() {
-    return glm::vec4(this->m_agentColor[0], this->m_agentColor[1], this->m_agentColor[2],
-                     this->m_agentColor[3]);
+glm::vec3 Settings::getColor() const {
+    return glm::vec3(this->m_agentColor[0], this->m_agentColor[1], this->m_agentColor[2]);
 };
+
+glm::vec3 Settings::getColorMod() const {
+    return glm::vec3(this->m_effectColor[0], this->m_effectColor[1], this->m_effectColor[2]);
+}
 
 float Settings::getSpeed() const {
     return this->m_simulationSpeed;
@@ -92,6 +96,14 @@ float Settings::getSensorOffsetDistance() const {
 
 float Settings::getTurnSpeed() const {
     return this->m_turnSpeed;
+}
+
+float Settings::getDiffuseSpeed() const {
+    return this->m_diffuseSpeed;
+}
+
+float Settings::getEvaporateSpeed() const {
+    return this->m_evaporateSpeed;
 }
 
 int Settings::getSensorSize() const {

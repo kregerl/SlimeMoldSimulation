@@ -66,6 +66,11 @@ public:
         glDispatchCompute(xGroup, yGroup, zGroup);
     }
 
+    [[maybe_unused]]
+    void setBool(const std::string &name, bool value) const {
+        glUniform1i(glGetUniformLocation(ID, name.c_str()), (int) value);
+    }
+
     void setFloat(const std::string &name, float value) const {
         glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
     }
@@ -83,6 +88,16 @@ public:
     [[maybe_unused]]
     void setVec4(const std::string &name, const glm::vec4 &value) const {
         glUniform4fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+    }
+
+    [[maybe_unused]]
+    void setVec3(const std::string &name, const glm::vec3 &value) const {
+        glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+    }
+
+    [[maybe_unused]]
+    void setVec3(const std::string &name, float x, float y, float z) const {
+        glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
     }
 
 private:

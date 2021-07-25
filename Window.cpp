@@ -74,5 +74,6 @@ void Window::processInput() {
         glfwSetWindowShouldClose(this->m_window, true);
     if (glfwGetKey(this->m_window, GLFW_KEY_SPACE) == GLFW_PRESS && m_isPaused)
         this->m_isPaused = !m_isPaused;
+
 }
 

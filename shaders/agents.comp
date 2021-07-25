@@ -12,13 +12,13 @@ layout (rgba32f, binding = 0) uniform image2D imageOutput;
 layout (std430, binding = 2) buffer Agents {
     Agent agents[];
 };
+uniform vec3 color;
 uniform float deltaTime;
 uniform float speed;
 uniform float turnSpeed;
 uniform float sensorOffsetDistance;
 uniform float sensorAngle;
 uniform int sensorSize;
-uniform vec4 color;
 
 ivec2 size = imageSize(imageOutput);
 
@@ -82,10 +82,6 @@ void main() {
     vec2 direction = vec2(cos(agent.angle), sin(agent.angle));
     position += direction * speed * deltaTime;
 
-    // start turning if past certain point x, y
-    //    if (position.x > 2 * (size.x / 3) || position.x < (size.x / 3) || position.y > 2 * (size.y / 3) || position.y < (size.y / 3)) {
-    //        agents[index].shouldTurn = true;
-    //    }
 
     // Handle collisions with sides of screen
     if (position.x < 0 || position.x >= size.x || position.y < 0 || position.y >= size.y) {
@@ -100,7 +96,7 @@ void main() {
     agents[index].x = position.x;
     agents[index].y = position.y;
 
-    imageStore(imageOutput, ivec2(agent.x, agent.y), color);
+    imageStore(imageOutput, ivec2(agent.x, agent.y), vec4(color.rgb, 1.0));
 }
 
 

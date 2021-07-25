@@ -1,7 +1,7 @@
 #include "Simulation.h"
 
 
-Simulation::Simulation(int width, int height) : m_numAgents(100000) {
+Simulation::Simulation(int width, int height) : m_numAgents(200000) {
     this->setupAgents(width, height);
     this->m_window = new Window(width, height, "Slime Mold Simulation");
     this->m_settings = new Settings(this->m_window);
@@ -70,21 +70,25 @@ void Simulation::run() {
         this->m_outTexture->use();
 
         this->m_agentShader->use();
+        this->m_agentShader->setVec3("color", this->m_settings->getColor());
         this->m_agentShader->setFloat("deltaTime", deltaTime);
         this->m_agentShader->setFloat("speed", this->m_settings->getSpeed());
         this->m_agentShader->setFloat("turnSpeed", this->m_settings->getSpeed());
         this->m_agentShader->setFloat("sensorOffsetDistance", this->m_settings->getSensorOffsetDistance());
         this->m_agentShader->setFloat("sensorAngle", this->m_settings->getSensorAngle());
         this->m_agentShader->setInt("sensorSize", this->m_settings->getSensorSize());
-        this->m_agentShader->setVec4("color", this->m_settings->getColor());
         ComputeShader::dispatch(this->m_numAgents / 64, 1, 1);
 
         glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT);
-        if (this->m_settings->shouldBlur()) {
-            this->m_effectShader->use();
-            this->m_effectShader->setFloat("deltaTime", deltaTime);
-            ComputeShader::dispatch(this->m_window->getWidth() / 8, this->m_window->getHeight() / 8, 1);
-        }
+
+        this->m_effectShader->use();
+        this->m_effectShader->setVec3("colorMod", this->m_settings->getColorMod());
+        this->m_effectShader->setFloat("deltaTime", deltaTime);
+        this->m_effectShader->setFloat("diffuseSpeed", this->m_settings->getDiffuseSpeed());
+        this->m_effectShader->setFloat("evaporationSpeed", this->m_settings->getEvaporateSpeed());
+        this->m_effectShader->setBool("shouldBlur", this->m_settings->shouldBlur());
+        ComputeShader::dispatch(this->m_window->getWidth() / 8, this->m_window->getHeight() / 8, 1);
+
 
         glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 

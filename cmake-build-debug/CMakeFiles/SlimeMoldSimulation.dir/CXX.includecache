@@ -58,10 +58,6 @@ sstream
 string
 -
 
-/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.cpp
-Settings.h
-/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.h
-
 /home/loucas/CLionProjects/SlimeMoldSimulation/Settings.h
 imgui/imgui.h
 -
@@ -139,8 +135,4 @@ iostream
 -
 cstdint
 -
-
-/home/loucas/CLionProjects/SlimeMoldSimulation/main.cpp
-Simulation.h
-/home/loucas/CLionProjects/SlimeMoldSimulation/Simulation.h
 

@@ -4,30 +4,38 @@ layout (local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
 layout (binding = 0, rgba32f) uniform readonly image2D imageInput;
 layout (binding = 0, rgba32f) uniform writeonly image2D imageOutput;
 
+uniform vec3 colorMod;
 uniform float deltaTime;
-const float diffuseSpeed = 10.0;
-const float evapSpeed = 0.4;
+uniform float diffuseSpeed;
+uniform float evaporationSpeed;
+uniform bool shouldBlur;
 
 void main() {
     ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
     ivec2 imageSize = imageSize(imageInput);
     vec4 original = imageLoad(imageInput, coords);
-    vec4 sum = vec4(0.0);
     // Basic gaussian blur
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-            ivec2 neighborCoords = ivec2(coords.x + i, coords.y + j);
-            if (neighborCoords.x >= 0 && neighborCoords.x < imageSize.x && neighborCoords.y >= 0 && neighborCoords.y <= imageSize.y) {
-                sum += imageLoad(imageInput, neighborCoords);
+    vec4 blur;
+    if (shouldBlur) {
+        vec4 sum = vec4(0.0);
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                ivec2 neighborCoords = ivec2(coords.x + i, coords.y + j);
+                if (neighborCoords.x >= 0 && neighborCoords.x < imageSize.x && neighborCoords.y >= 0 && neighborCoords.y <= imageSize.y) {
+                    sum += imageLoad(imageInput, neighborCoords);
+                }
             }
         }
+        blur = sum / 9.0;
+    } else {
+        blur = original;
     }
-    vec4 blur = sum / 9.0;
+
 
     vec4 diffusedBlur = mix(original, blur, diffuseSpeed * deltaTime);
-    vec4 evaporatedAndDiffusedBlur = diffusedBlur - evapSpeed * deltaTime;
+    vec4 evaporatedAndDiffusedBlur = diffusedBlur - evaporationSpeed * deltaTime;
 
-//    vec4 processedValue = vec4(evaporatedAndDiffusedBlur.r, evaporatedAndDiffusedBlur.g - 0.015, evaporatedAndDiffusedBlur.b, evaporatedAndDiffusedBlur.a);
+    vec4 processedValue = vec4(evaporatedAndDiffusedBlur.r - colorMod.x, evaporatedAndDiffusedBlur.g - colorMod.y, evaporatedAndDiffusedBlur.b - colorMod.z, evaporatedAndDiffusedBlur.a);
 
-    imageStore(imageOutput, coords, evaporatedAndDiffusedBlur);
+    imageStore(imageOutput, coords, processedValue);
 }
