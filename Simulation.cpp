@@ -11,7 +11,6 @@ Simulation::Simulation(int width, int height) : m_numAgents(200000) {
 
     this->m_agentShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/agents.comp");
 
-    // For some reason the data portion needs to be &this->m_agents[0], using &this->m_agents does not work for some reason.
     this->m_agentShader->useSSBO(this->m_numAgents * sizeof(Agent), &this->m_agents[0]);
     this->m_effectShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/effects.comp");
 
@@ -33,8 +32,6 @@ void Simulation::setupAgents(int width, int height) {
     const float radius = std::min(width, height) / 2.0f;
     float x, y;
     for (size_t i = 0; i < this->m_numAgents; i++) {
-//        this->m_agents[i] = {glm::vec2(posX(random), posY(random)), angle(random)};
-//        Agent agent{};
         do {
             x = posX(random);
             y = posY(random);
@@ -43,14 +40,6 @@ void Simulation::setupAgents(int width, int height) {
         m_agents.at(i).shouldTurn = true;
 
 
-//        agent.x = width / 2;
-//        agent.y = height / 2;
-//        agent.x = posX(random);
-//        agent.y = posY(random);
-
-//        agent.angle = angle(random);
-//        agent.shouldTurn = true;
-//        this->m_agents[i] = agent;
     }
 
 }
