@@ -1,8 +1,8 @@
 # Slime Mold Simulation
 
 This is a simulaton of a slime mold written in C++ implemented as an OpenGL compute shader.  
-The simulation has a few basic controls that can be manipulated at runtime:
 ![img.png](images/img.png)
+The simulation has a few basic controls that can be manipulated at runtime:
 
 - ### Settings:
     - Color: The main color of agents in the simulation.
