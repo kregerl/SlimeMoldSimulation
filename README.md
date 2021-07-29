@@ -41,6 +41,6 @@ The simulation has a few basic controls that can be manipulated at runtime:
 I plan on implementing a play / pause and reset button, although that can be done using the agent speed slider it'll be
 a small quality of life change.  
 I would like to add brushes that allow the user to create new agents using the mouse. When the mouse is clicked and the
-simulation is running I would like to push the agents away from the mouse. Species: Inspired
-from [Sebastian Lague's video](https://www.youtube.com/watch?v=X-iSQQgOd1A) I would also like to add species, where
-different species can be controlled individually in the settings.
+simulation is running I would like to push the agents away from the mouse.  
+Species: Inspired from [Sebastian Lague's video](https://www.youtube.com/watch?v=X-iSQQgOd1A) I would also like to add
+species, where different species can be controlled individually in the settings.
