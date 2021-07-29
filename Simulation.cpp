@@ -75,7 +75,7 @@ void Simulation::run() {
         this->m_agentShader->setFloat("speed", this->m_settings->getSpeed());
         this->m_agentShader->setFloat("turnSpeed", this->m_settings->getSpeed());
         this->m_agentShader->setFloat("sensorOffsetDistance", this->m_settings->getSensorOffsetDistance());
-        this->m_agentShader->setFloat("sensorAngle", this->m_settings->getSensorAngle());
+        this->m_agentShader->setFloat("sensorAngleOffset", this->m_settings->getSensorAngle());
         this->m_agentShader->setInt("sensorSize", this->m_settings->getSensorSize());
         ComputeShader::dispatch(this->m_numAgents / 64, 1, 1);
 

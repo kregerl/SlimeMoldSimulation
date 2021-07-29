@@ -17,7 +17,7 @@ uniform float deltaTime;
 uniform float speed;
 uniform float turnSpeed;
 uniform float sensorOffsetDistance;
-uniform float sensorAngle;
+uniform float sensorAngleOffset;
 uniform int sensorSize;
 
 ivec2 size = imageSize(imageOutput);
@@ -60,8 +60,8 @@ void main() {
     Agent agent = agents[index];
 
     float forwardWeight = sense(agent, 0);
-    float leftWeight = sense(agent, 0.6);
-    float rightWeight = sense(agent, -0.6);
+    float leftWeight = sense(agent, sensorAngleOffset);
+    float rightWeight = sense(agent, -sensorAngleOffset);
 
     uint randomSteer = hash(uint(agent.y * size.y + agent.x + hash(index)));
     float steerStrength = scaleTo01(randomSteer);

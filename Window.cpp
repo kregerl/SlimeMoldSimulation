@@ -1,7 +1,7 @@
 #include "Window.h"
 
 static void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
-    glViewport(0, 0, 1280 * 2, 720 * 2);
+    glViewport(0, 0, width * 2, height * 2);
 }
 
 Window::Window(const int width, const int height, const std::string &title) : m_width(width),
