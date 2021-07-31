@@ -6,8 +6,10 @@
 #include <imgui/imgui_impl_opengl3.h>
 #include <glm/vec4.hpp>
 #include "Window.h"
+#include "Texture.h"
 
 #define GLSL_VERSION "#version 460 core"
+#define IMAGE_BUTTON_SIZE ImVec2(24, 24)
 #define PICKER_SIZE 3
 
 
@@ -54,8 +56,17 @@ public:
     [[maybe_unused]] [[nodiscard]]
     bool shouldBlur() const;
 
+    [[maybe_unused]] [[nodiscard]]
+    bool isRunning() const;
+
 
 private:
+    Texture *m_currentTexture;
+    Texture *m_playTexture;
+    Texture *m_pauseTexture;
+    Texture *m_resetTexture;
+
+    bool m_playing = true;
     bool m_showWindow = true;
     bool m_blur = true;
     float m_agentColor[PICKER_SIZE]{};

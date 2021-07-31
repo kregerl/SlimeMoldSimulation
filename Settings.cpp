@@ -14,6 +14,16 @@ Settings::Settings(Window *window) {
     std::fill(this->m_agentColor, this->m_agentColor + PICKER_SIZE, 1);
     std::fill(this->m_effectColor, this->m_effectColor + PICKER_SIZE, 0);
 
+    this->m_playTexture = new Texture("/home/loucas/CLionProjects/SlimeMoldSimulation/images/play32xwhite.png",
+                                      GL_READ_ONLY);
+    this->m_pauseTexture = new Texture("/home/loucas/CLionProjects/SlimeMoldSimulation/images/pause32xwhite.png",
+                                       GL_READ_ONLY);
+    this->m_resetTexture = new Texture(
+            "/home/loucas/CLionProjects/SlimeMoldSimulation/images/reset32xwhite.png",
+            GL_READ_ONLY);
+
+    this->m_currentTexture = this->m_playTexture;
+
 }
 
 
@@ -29,11 +39,15 @@ void Settings::init() {
 
         ImGui::ColorEdit3("Color", this->m_agentColor);
 
-        ImGui::Button("Play");
+
+        if (ImGui::ImageButton(this->m_currentTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
+            this->m_playing = !this->m_playing;
+            this->m_currentTexture = this->m_playing ? this->m_pauseTexture : this->m_playTexture;
+        }
         ImGui::SameLine();
-        ImGui::Button("Pause");
-        ImGui::SameLine();
-        ImGui::Button("Reset");
+        // The reset button needs framebuffers in order to correctly clear the texture.
+        ImGui::ImageButton(this->m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE);
+
 
         if (ImGui::CollapsingHeader("Effect Settings")) {
             ImGui::Checkbox("Blur", &this->m_blur);
@@ -112,4 +126,8 @@ int Settings::getSensorSize() const {
 
 bool Settings::shouldBlur() const {
     return this->m_blur;
+}
+
+bool Settings::isRunning() const {
+    return this->m_playing;
 }

@@ -7,6 +7,7 @@ CMakeFiles/SlimeMoldSimulation.dir/glad.c.o: ../glad.c
 
 CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o: ../include/KHR/khrplatform.h
 CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o: ../include/glad/glad.h
+CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o: ../include/stb_image.h
 CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o: ../Framebuffer.cpp
 CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o: ../Framebuffer.h
 CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o: ../Texture.h
@@ -17,8 +18,10 @@ CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../imgui/imgui_impl_glfw.h
 CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../imgui/imgui_impl_opengl3.h
 CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../include/KHR/khrplatform.h
 CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../include/glad/glad.h
+CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../include/stb_image.h
 CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../Settings.cpp
 CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../Settings.h
+CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../Texture.h
 CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: ../Window.h
 
 CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../imgui/imconfig.h
@@ -27,7 +30,9 @@ CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../imgui/imgui_impl_glfw.h
 CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../imgui/imgui_impl_opengl3.h
 CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../include/KHR/khrplatform.h
 CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../include/glad/glad.h
+CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../include/stb_image.h
 CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../ComputeShader.h
+CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../Framebuffer.h
 CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../Settings.h
 CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../Shader.h
 CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: ../Simulation.cpp
@@ -43,6 +48,7 @@ CMakeFiles/SlimeMoldSimulation.dir/Sprite.cpp.o: ../Sprite.h
 
 CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o: ../include/KHR/khrplatform.h
 CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o: ../include/glad/glad.h
+CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o: ../include/stb_image.h
 CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o: ../Texture.cpp
 CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o: ../Texture.h
 
@@ -51,13 +57,18 @@ CMakeFiles/SlimeMoldSimulation.dir/Window.cpp.o: ../include/glad/glad.h
 CMakeFiles/SlimeMoldSimulation.dir/Window.cpp.o: ../Window.cpp
 CMakeFiles/SlimeMoldSimulation.dir/Window.cpp.o: ../Window.h
 
+CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.o: ../include/stb_image.cpp
+CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.o: ../include/stb_image.h
+
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../imgui/imconfig.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../imgui/imgui.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../imgui/imgui_impl_glfw.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../imgui/imgui_impl_opengl3.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../include/KHR/khrplatform.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../include/glad/glad.h
+CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../include/stb_image.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../ComputeShader.h
+CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../Framebuffer.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../Settings.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../Shader.h
 CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: ../Simulation.h

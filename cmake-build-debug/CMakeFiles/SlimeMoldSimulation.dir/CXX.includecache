@@ -48,6 +48,38 @@ stdint.h
 KHR/khrplatform.h
 -
 
+../include/stb_image.h
+stb_image.h
+../include/stb_image.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+string.h
+-
+limits.h
+-
+math.h
+-
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+
 /home/loucas/CLionProjects/SlimeMoldSimulation/ComputeShader.h
 iostream
 -
@@ -57,6 +89,12 @@ sstream
 -
 string
 -
+
+/home/loucas/CLionProjects/SlimeMoldSimulation/Framebuffer.h
+glad/glad.h
+-
+Texture.h
+/home/loucas/CLionProjects/SlimeMoldSimulation/Texture.h
 
 /home/loucas/CLionProjects/SlimeMoldSimulation/Settings.h
 imgui/imgui.h
@@ -69,6 +107,8 @@ glm/vec4.hpp
 -
 Window.h
 /home/loucas/CLionProjects/SlimeMoldSimulation/Window.h
+Texture.h
+/home/loucas/CLionProjects/SlimeMoldSimulation/Texture.h
 
 /home/loucas/CLionProjects/SlimeMoldSimulation/Shader.h
 glm/glm.hpp
@@ -109,6 +149,8 @@ ComputeShader.h
 /home/loucas/CLionProjects/SlimeMoldSimulation/ComputeShader.h
 Texture.h
 /home/loucas/CLionProjects/SlimeMoldSimulation/Texture.h
+Framebuffer.h
+/home/loucas/CLionProjects/SlimeMoldSimulation/Framebuffer.h
 Sprite.h
 /home/loucas/CLionProjects/SlimeMoldSimulation/Sprite.h
 
@@ -125,6 +167,10 @@ glad/glad.h
 -
 iostream
 -
+filesystem
+-
+stb_image.h
+/home/loucas/CLionProjects/SlimeMoldSimulation/stb_image.h
 
 /home/loucas/CLionProjects/SlimeMoldSimulation/Window.h
 glad/glad.h

@@ -2401,7 +2401,7 @@ bool ImGuiListClipper::Step()
         return true;
     }
 
-    // Step 3: the clipper validate that we have reached the expected Y position (corresponding to element DisplayEnd),
+    // Step 3: the clipper checkErrors that we have reached the expected Y position (corresponding to element DisplayEnd),
     // Advance the cursor to the end of the list and then returns 'false' to end the loop.
     if (StepNo == 3)
     {

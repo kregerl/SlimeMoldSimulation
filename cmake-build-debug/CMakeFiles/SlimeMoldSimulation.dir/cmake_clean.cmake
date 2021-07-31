@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o"
   "CMakeFiles/SlimeMoldSimulation.dir/Window.cpp.o"
   "CMakeFiles/SlimeMoldSimulation.dir/glad.c.o"
+  "CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.o"
   "CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o"
   "SlimeMoldSimulation"
   "SlimeMoldSimulation.pdb"

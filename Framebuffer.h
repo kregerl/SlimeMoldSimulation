@@ -11,11 +11,13 @@ public:
 
     ~Framebuffer();
 
-    void validate();
+    void checkErrors();
 
     void bind();
 
     void unbind();
+
+    Texture *getTextureAttachment() const;
 
 
 private:

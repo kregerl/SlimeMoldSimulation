@@ -12,6 +12,7 @@
 #include "Shader.h"
 #include "ComputeShader.h"
 #include "Texture.h"
+#include "Framebuffer.h"
 #include "Sprite.h"
 
 #define TWO_PI 6.2831853f

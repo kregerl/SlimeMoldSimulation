@@ -19,6 +19,7 @@ Simulation::Simulation(int width, int height) : m_numAgents(200000) {
 
     this->m_sprite = new Sprite(-1.0f, 1.0f, 1.0f, -1.0f, this->m_outTexture->id);
 
+
 }
 
 void Simulation::setupAgents(int width, int height) {
@@ -46,6 +47,9 @@ void Simulation::setupAgents(int width, int height) {
 
 
 void Simulation::run() {
+    this->m_inTexture->use();
+    this->m_outTexture->use();
+    this->m_agents.clear();
     while (!this->m_window->shouldClose()) {
         this->m_window->use();
 
@@ -55,8 +59,6 @@ void Simulation::run() {
 //        --------------------------------------------
         float deltaTime = m_window->getDeltaTime();
 
-        this->m_inTexture->use();
-        this->m_outTexture->use();
 
         this->m_agentShader->use();
         this->m_agentShader->setVec3("color", this->m_settings->getColor());
@@ -66,7 +68,9 @@ void Simulation::run() {
         this->m_agentShader->setFloat("sensorOffsetDistance", this->m_settings->getSensorOffsetDistance());
         this->m_agentShader->setFloat("sensorAngleOffset", this->m_settings->getSensorAngle());
         this->m_agentShader->setInt("sensorSize", this->m_settings->getSensorSize());
+        this->m_agentShader->setBool("isRunning", this->m_settings->isRunning());
         ComputeShader::dispatch(this->m_numAgents / 64, 1, 1);
+
 
         glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT);
 
@@ -76,6 +80,7 @@ void Simulation::run() {
         this->m_effectShader->setFloat("diffuseSpeed", this->m_settings->getDiffuseSpeed());
         this->m_effectShader->setFloat("evaporationSpeed", this->m_settings->getEvaporateSpeed());
         this->m_effectShader->setBool("shouldBlur", this->m_settings->shouldBlur());
+        this->m_effectShader->setBool("isRunning", this->m_settings->isRunning());
         ComputeShader::dispatch(this->m_window->getWidth() / 8, this->m_window->getHeight() / 8, 1);
 
 
@@ -84,8 +89,10 @@ void Simulation::run() {
         glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+
         this->m_shader->use();
         this->m_sprite->draw();
+
 //      --------------------------------------------
 
         Settings::draw();

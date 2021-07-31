@@ -9,33 +9,38 @@ uniform float deltaTime;
 uniform float diffuseSpeed;
 uniform float evaporationSpeed;
 uniform bool shouldBlur;
+uniform bool isRunning;
 
 void main() {
-    ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
-    ivec2 imageSize = imageSize(imageInput);
-    vec4 original = imageLoad(imageInput, coords);
-    // Basic gaussian blur
-    vec4 blur;
-    if (shouldBlur) {
-        vec4 sum = vec4(0.0);
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                ivec2 neighborCoords = ivec2(coords.x + i, coords.y + j);
-                if (neighborCoords.x >= 0 && neighborCoords.x < imageSize.x && neighborCoords.y >= 0 && neighborCoords.y <= imageSize.y) {
-                    sum += imageLoad(imageInput, neighborCoords);
+    if (isRunning) {
+
+        ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
+        ivec2 imageSize = imageSize(imageInput);
+        vec4 original = imageLoad(imageInput, coords);
+        // Basic gaussian blur
+        vec4 blur;
+        if (shouldBlur) {
+            vec4 sum = vec4(0.0);
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    ivec2 neighborCoords = ivec2(coords.x + i, coords.y + j);
+                    if (neighborCoords.x >= 0 && neighborCoords.x < imageSize.x && neighborCoords.y >= 0 && neighborCoords.y <= imageSize.y) {
+                        sum += imageLoad(imageInput, neighborCoords);
+                    }
                 }
             }
+            blur = sum / 9.0;
+        } else {
+            blur = original;
         }
-        blur = sum / 9.0;
-    } else {
-        blur = original;
+
+
+        vec4 diffusedBlur = mix(original, blur, diffuseSpeed * deltaTime);
+        vec4 evaporatedAndDiffusedBlur = diffusedBlur - evaporationSpeed * deltaTime;
+
+        vec4 processedValue = vec4(evaporatedAndDiffusedBlur.r - colorMod.x, evaporatedAndDiffusedBlur.g - colorMod.y, evaporatedAndDiffusedBlur.b - colorMod.z, evaporatedAndDiffusedBlur.a);
+
+        imageStore(imageOutput, coords, processedValue);
     }
 
-
-    vec4 diffusedBlur = mix(original, blur, diffuseSpeed * deltaTime);
-    vec4 evaporatedAndDiffusedBlur = diffusedBlur - evaporationSpeed * deltaTime;
-
-    vec4 processedValue = vec4(evaporatedAndDiffusedBlur.r - colorMod.x, evaporatedAndDiffusedBlur.g - colorMod.y, evaporatedAndDiffusedBlur.b - colorMod.z, evaporatedAndDiffusedBlur.a);
-
-    imageStore(imageOutput, coords, processedValue);
 }

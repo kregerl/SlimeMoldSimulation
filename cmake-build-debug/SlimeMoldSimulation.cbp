@@ -222,6 +222,12 @@
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/imgui/imstb_truetype.h">
 			<Option target="imgui"/>
 		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/include/stb_image.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/include/stb_image.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/main.cpp">
 			<Option target="SlimeMoldSimulation"/>
 		</Unit>

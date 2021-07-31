@@ -21,6 +21,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/loucas/CLionProjects/SlimeMoldSimulation/Sprite.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Sprite.cpp.o"
   "/home/loucas/CLionProjects/SlimeMoldSimulation/Texture.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o"
   "/home/loucas/CLionProjects/SlimeMoldSimulation/Window.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Window.cpp.o"
+  "/home/loucas/CLionProjects/SlimeMoldSimulation/include/stb_image.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.o"
   "/home/loucas/CLionProjects/SlimeMoldSimulation/main.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

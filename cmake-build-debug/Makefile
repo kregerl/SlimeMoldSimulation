@@ -344,6 +344,33 @@ glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/glad.c.s
 .PHONY : glad.c.s
 
+include/stb_image.o: include/stb_image.cpp.o
+
+.PHONY : include/stb_image.o
+
+# target to build an object file
+include/stb_image.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.o
+.PHONY : include/stb_image.cpp.o
+
+include/stb_image.i: include/stb_image.cpp.i
+
+.PHONY : include/stb_image.i
+
+# target to preprocess a source file
+include/stb_image.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.i
+.PHONY : include/stb_image.cpp.i
+
+include/stb_image.s: include/stb_image.cpp.s
+
+.PHONY : include/stb_image.s
+
+# target to generate assembly for a file
+include/stb_image.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.s
+.PHONY : include/stb_image.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -402,6 +429,9 @@ help:
 	@echo "... glad.o"
 	@echo "... glad.i"
 	@echo "... glad.s"
+	@echo "... include/stb_image.o"
+	@echo "... include/stb_image.i"
+	@echo "... include/stb_image.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
