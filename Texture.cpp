@@ -1,5 +1,6 @@
 #include "Texture.h"
 
+
 Texture::Texture(int width, int height, GLenum access) : m_texAccess(access), m_width(width), m_height(height) {
     glGenTextures(1, &id);
     glActiveTexture(GL_TEXTURE0);
@@ -25,7 +26,8 @@ Texture::Texture(const std::string &fileName, GLenum access, GLuint imageChannel
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    // unused for now, changed to a nullptr since it is unused.
+    // 7/28 unused for now, changed to a nullptr since it is unused.
+    // 7/31 new nrChannels to determine the image channels, 1 GL_R, 2 GL_RG, 3 GL_RGB, 4 GL_RGBA
     int nrChannels;
     // Implement a get filesystem path.
     unsigned char *data = stbi_load(fileName.c_str(), &this->m_width, &this->m_height, /*nrChannels*/ nullptr, 0);

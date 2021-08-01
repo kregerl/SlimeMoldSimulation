@@ -46,7 +46,9 @@ void Settings::init() {
         }
         ImGui::SameLine();
         // The reset button needs framebuffers in order to correctly clear the texture.
-        ImGui::ImageButton(this->m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE);
+        if (ImGui::ImageButton(this->m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
+            this->m_shouldReset = !this->m_shouldReset;
+        }
 
 
         if (ImGui::CollapsingHeader("Effect Settings")) {
@@ -130,4 +132,8 @@ bool Settings::shouldBlur() const {
 
 bool Settings::isRunning() const {
     return this->m_playing;
+}
+
+bool Settings::shouldReset() const {
+    return this->m_shouldReset;
 }

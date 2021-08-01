@@ -61,6 +61,10 @@ public:
         std::cout << "Binding SSBO of size: " << std::to_string(size) << std::endl;
     }
 
+    void clearSSBO() {
+        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, 0);
+    }
+
 
     static void dispatch(unsigned int xGroup, unsigned int yGroup, unsigned int zGroup) {
         glDispatchCompute(xGroup, yGroup, zGroup);

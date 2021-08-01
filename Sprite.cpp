@@ -7,18 +7,18 @@ Sprite::Sprite(float x0, float y0, float x1, float y1, GLuint textureId) : m_tex
     glBindVertexArray(m_vao);
 
     float vertices[] = {
-//            x1, y0, 1.0f, 1.0f,
-//            x1, y1, 1.0f, 0.0f,
-//            x0, y0, 0.0f, 1.0f,
-//            x1, y1, 1.0f, 0.0f,
-//            x0, y1, 0.0f, 0.0f,
-//            x0, y0, 0.0f, 1.0f
-            x1, y0, 0.5f, 0.5f,
-            x1, y1, 0.5f, 0.0f,
-            x0, y0, 0.0f, 0.5f,
-            x1, y1, 0.5f, 0.0f,
+            x1, y0, 1.0f, 1.0f,
+            x1, y1, 1.0f, 0.0f,
+            x0, y0, 0.0f, 1.0f,
+            x1, y1, 1.0f, 0.0f,
             x0, y1, 0.0f, 0.0f,
-            x0, y0, 0.0f, 0.5f
+            x0, y0, 0.0f, 1.0f
+//            x1, y0, 0.5f, 0.5f,
+//            x1, y1, 0.5f, 0.0f,
+//            x0, y0, 0.0f, 0.5f,
+//            x1, y1, 0.5f, 0.0f,
+//            x0, y1, 0.0f, 0.0f,
+//            x0, y0, 0.0f, 0.5f
     };
     // Texture coords are windowSize / textureSize
 

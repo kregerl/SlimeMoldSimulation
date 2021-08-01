@@ -16,6 +16,10 @@
 class Settings {
 public:
 
+    bool m_shouldReset = false;
+    bool m_playing = true;
+
+
     Settings(Window *window);
 
     ~Settings();
@@ -59,6 +63,9 @@ public:
     [[maybe_unused]] [[nodiscard]]
     bool isRunning() const;
 
+    [[maybe_unused]] [[nodiscard]]
+    bool shouldReset() const;
+
 
 private:
     Texture *m_currentTexture;
@@ -66,7 +73,7 @@ private:
     Texture *m_pauseTexture;
     Texture *m_resetTexture;
 
-    bool m_playing = true;
+
     bool m_showWindow = true;
     bool m_blur = true;
     float m_agentColor[PICKER_SIZE]{};

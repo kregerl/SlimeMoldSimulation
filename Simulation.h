@@ -42,6 +42,8 @@ private:
     Texture *m_outTexture;
     Sprite *m_sprite;
 
+    Framebuffer *m_framebuffer;
+
     void setupAgents(int width, int height);
 
 public:
