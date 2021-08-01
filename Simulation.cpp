@@ -14,8 +14,6 @@ Simulation::Simulation(int width, int height) : m_numAgents(200000) {
     this->m_agentShader->useSSBO(this->m_numAgents * sizeof(Agent), &this->m_agents[0]);
     this->m_effectShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/effects.comp");
 
-//    this->m_inTexture = new Texture(width * 2, height * 2, GL_READ_WRITE);
-//    this->m_outTexture = new Texture(width * 2, height * 2, GL_WRITE_ONLY);
     this->m_framebuffer = new Framebuffer(width, height, GL_READ_WRITE);
 
     this->m_sprite = new Sprite(-1.0f, 1.0f, 1.0f, -1.0f, this->m_framebuffer->getTextureAttachment()->id);
@@ -39,7 +37,6 @@ void Simulation::setupAgents(int width, int height) {
             y = posY(random);
         } while (powf(x - width * 0.5f, 2) + powf(y - height * 0.5f, 2) > (radius * radius));
         m_agents.at(i) = {x, y, angle(random)};
-        m_agents.at(i).shouldTurn = true;
 
 
     }
@@ -48,13 +45,10 @@ void Simulation::setupAgents(int width, int height) {
 
 
 void Simulation::run() {
-//    this->m_inTexture->use();
-//    this->m_outTexture->use();
     while (!this->m_window->shouldClose()) {
         this->m_window->use();
 //        Init frames
         this->m_settings->init();
-
 //        Render simulation
 //        --------------------------------------------
         float deltaTime = m_window->getDeltaTime();
@@ -62,16 +56,13 @@ void Simulation::run() {
         this->m_framebuffer->bind();
 
         if (this->m_settings->shouldReset()) {
-            glClearColor(0.5f, 0.5f, 0.1f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
             this->m_settings->m_shouldReset = !this->m_settings->m_shouldReset;
-            this->m_agents.clear();
             this->m_agentShader->clearSSBO();
-            this->m_settings->m_playing = false;
+            this->m_settings->setPlaying(false);
             this->m_agentShader->useSSBO(this->m_numAgents * sizeof(Agent), &this->m_agents[0]);
-
         }
-
 
         this->m_agentShader->use();
         this->m_agentShader->setVec3("color", this->m_settings->getColor());
@@ -101,8 +92,8 @@ void Simulation::run() {
 
         this->m_framebuffer->unbind();
 
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
         this->m_shader->use();
         this->m_sprite->draw();
@@ -116,3 +107,4 @@ void Simulation::run() {
     Settings::shutdown();
     this->m_window->close();
 }
+

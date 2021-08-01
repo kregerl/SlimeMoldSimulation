@@ -56,13 +56,13 @@ public:
         glGenBuffers(1, &m_ssbo);
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_ssbo);
         glBufferData(GL_SHADER_STORAGE_BUFFER, size, data, GL_DYNAMIC_COPY);
-        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, m_ssbo);
+        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, m_ssbo);
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
         std::cout << "Binding SSBO of size: " << std::to_string(size) << std::endl;
     }
 
     void clearSSBO() {
-        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, 0);
+        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, 0);
     }
 
 

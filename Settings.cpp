@@ -39,13 +39,14 @@ void Settings::init() {
 
         ImGui::ColorEdit3("Color", this->m_agentColor);
 
+        this->m_currentTexture = this->m_playing ? this->m_pauseTexture : this->m_playTexture;
 
         if (ImGui::ImageButton(this->m_currentTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
             this->m_playing = !this->m_playing;
-            this->m_currentTexture = this->m_playing ? this->m_pauseTexture : this->m_playTexture;
         }
+
         ImGui::SameLine();
-        // The reset button needs framebuffers in order to correctly clear the texture.
+
         if (ImGui::ImageButton(this->m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
             this->m_shouldReset = !this->m_shouldReset;
         }
@@ -94,6 +95,7 @@ glm::vec3 Settings::getColor() const {
     return glm::vec3(this->m_agentColor[0], this->m_agentColor[1], this->m_agentColor[2]);
 };
 
+
 glm::vec3 Settings::getColorMod() const {
     return glm::vec3(this->m_effectColor[0], this->m_effectColor[1], this->m_effectColor[2]);
 }
@@ -132,6 +134,10 @@ bool Settings::shouldBlur() const {
 
 bool Settings::isRunning() const {
     return this->m_playing;
+}
+
+void Settings::setPlaying(bool playing) {
+    this->m_playing = playing;
 }
 
 bool Settings::shouldReset() const {

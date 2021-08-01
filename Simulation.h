@@ -17,16 +17,15 @@
 
 #define TWO_PI 6.2831853f
 
-
 struct Agent {
     float x, y;
     float angle;
-    bool shouldTurn;
 };
 
 enum SpawnPosition {
     CENTER, CIRCLE, EDGES, RANDOM, MULTI_CIRCLE
 };
+
 
 class Simulation {
 private:
@@ -38,11 +37,8 @@ private:
     Shader *m_shader;
     ComputeShader *m_agentShader;
     ComputeShader *m_effectShader;
-    Texture *m_inTexture;
-    Texture *m_outTexture;
-    Sprite *m_sprite;
-
     Framebuffer *m_framebuffer;
+    Sprite *m_sprite;
 
     void setupAgents(int width, int height);
 
@@ -52,6 +48,8 @@ public:
     ~Simulation() = default;
 
     void run();
+
+    void clearColor();
 };
 
 
