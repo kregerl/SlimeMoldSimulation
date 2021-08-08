@@ -1,9 +1,21 @@
 #version 460 core
 #define TWO_PI 6.2831853
+#define MAX_SPECIES 10
+
+struct SpeciesSpec {
+    vec3 color;
+    float speed;
+    float turnSpeed;
+    float sensorOffsetDistance;
+    float sensorAngleOffset;
+    int sensorSize;
+};
+
 
 struct Agent {
     float x, y;
     float angle;
+    int speciesIndex;
 };
 
 layout (local_size_x = 64, local_size_y = 1, local_size_z = 1) in;
@@ -11,6 +23,11 @@ layout (rgba32f, binding = 0) uniform image2D imageOutput;
 layout (std430, binding = 1) buffer Agents {
     Agent agents[];
 };
+
+layout (std140, binding = 2) uniform SpeciesSpecBlock {
+    SpeciesSpec speciesSpec[MAX_SPECIES];
+};
+
 uniform vec3 color;
 uniform float deltaTime;
 uniform float speed;
@@ -58,6 +75,7 @@ float sense(Agent agent, float sensorAngleOffset){
 void main() {
     uint index = gl_GlobalInvocationID.x;
     Agent agent = agents[index];
+    SpeciesSpec spec = speciesSpec[agent.speciesIndex];
     if (isRunning) {
 
 
@@ -95,7 +113,7 @@ void main() {
         agents[index].x = position.x;
         agents[index].y = position.y;
     }
-    imageStore(imageOutput, ivec2(agent.x, agent.y), vec4(color.rgb, 1.0));
+    imageStore(imageOutput, ivec2(agent.x, agent.y), vec4(spec.color.rgb, 1.0));
 }
 
 

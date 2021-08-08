@@ -4,9 +4,11 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
-#include <glm/vec4.hpp>
+#include <glm/glm.hpp>
+#include <vector>
 #include "Window.h"
 #include "Texture.h"
+#include "AgentSystem.h"
 
 #define GLSL_VERSION "#version 460 core"
 #define IMAGE_BUTTON_SIZE ImVec2(24, 24)
@@ -19,7 +21,7 @@ public:
     bool m_shouldReset = false;
 
 
-    Settings(Window *window);
+    Settings(Window *window, AgentSystem *system);
 
     ~Settings();
 
@@ -70,6 +72,10 @@ public:
 
 
 private:
+//    std::vector<SpeciesSpec> &specs;
+
+    AgentSystem *m_agentSystem;
+
     Texture *m_currentTexture;
     Texture *m_playTexture;
     Texture *m_pauseTexture;
@@ -87,6 +93,8 @@ private:
     float m_diffuseSpeed = 10.0;
     float m_evaporateSpeed = 0.4f;
     int m_sensorSize = 3;
+    char *m_numSpecies;
+    char *m_speciesItems[MAX_SPECIES]{};
 };
 
 

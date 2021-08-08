@@ -14,33 +14,24 @@
 #include "Texture.h"
 #include "Framebuffer.h"
 #include "Sprite.h"
+#include "AgentSystem.h"
 
-#define TWO_PI 6.2831853f
-
-struct Agent {
-    float x, y;
-    float angle;
-};
-
-enum SpawnPosition {
-    CENTER, CIRCLE, EDGES, RANDOM, MULTI_CIRCLE
-};
-
+#define NUM_AGENTS 200000
 
 class Simulation {
 private:
-    const size_t m_numAgents;
-    std::vector<Agent> m_agents;
+//    const size_t m_numAgents;
+//    std::vector<Agent> m_agents;
+//    std::vector<SpeciesSpec> m_speciesSpecs;
 
     Window *m_window;
+    AgentSystem *m_agentSystem;
     Settings *m_settings;
     Shader *m_shader;
     ComputeShader *m_agentShader;
     ComputeShader *m_effectShader;
     Framebuffer *m_framebuffer;
     Sprite *m_sprite;
-
-    void setupAgents(int width, int height);
 
 public:
     Simulation(int width, int height);

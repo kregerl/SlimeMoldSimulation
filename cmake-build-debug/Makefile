@@ -142,6 +142,30 @@ imgui/fast:
 	$(MAKE) $(MAKESILENT) -f imgui/CMakeFiles/imgui.dir/build.make imgui/CMakeFiles/imgui.dir/build
 .PHONY : imgui/fast
 
+AgentSystem.o: AgentSystem.cpp.o
+.PHONY : AgentSystem.o
+
+# target to build an object file
+AgentSystem.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/AgentSystem.cpp.o
+.PHONY : AgentSystem.cpp.o
+
+AgentSystem.i: AgentSystem.cpp.i
+.PHONY : AgentSystem.i
+
+# target to preprocess a source file
+AgentSystem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/AgentSystem.cpp.i
+.PHONY : AgentSystem.cpp.i
+
+AgentSystem.s: AgentSystem.cpp.s
+.PHONY : AgentSystem.s
+
+# target to generate assembly for a file
+AgentSystem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SlimeMoldSimulation.dir/build.make CMakeFiles/SlimeMoldSimulation.dir/AgentSystem.cpp.s
+.PHONY : AgentSystem.cpp.s
+
 Framebuffer.o: Framebuffer.cpp.o
 .PHONY : Framebuffer.o
 
@@ -368,6 +392,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... SlimeMoldSimulation"
 	@echo "... imgui"
+	@echo "... AgentSystem.o"
+	@echo "... AgentSystem.i"
+	@echo "... AgentSystem.s"
 	@echo "... Framebuffer.o"
 	@echo "... Framebuffer.i"
 	@echo "... Framebuffer.s"

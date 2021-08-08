@@ -16,6 +16,7 @@ class ComputeShader {
 public:
     unsigned int ID;
     GLuint m_ssbo = 0;
+    GLuint m_ubo = 0;
 
     explicit ComputeShader(const char *computeShaderPath) {
         std::string computeShader;
@@ -52,19 +53,31 @@ public:
         glUseProgram(ID);
     }
 
-    void useSSBO(size_t size, void *data) {
+    void useSSBO(int index, size_t size, void *data) {
         glGenBuffers(1, &m_ssbo);
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_ssbo);
         glBufferData(GL_SHADER_STORAGE_BUFFER, size, data, GL_DYNAMIC_COPY);
-        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, m_ssbo);
+        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, index, m_ssbo);
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
         std::cout << "Binding SSBO of size: " << std::to_string(size) << std::endl;
     }
 
-    void clearSSBO() {
-        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, 0);
+    void useUBO(int index, size_t size, void *data) {
+        glGenBuffers(1, &m_ubo);
+        glBindBuffer(GL_UNIFORM_BUFFER, m_ubo);
+        glBufferData(GL_UNIFORM_BUFFER, size, data, GL_STATIC_COPY);
+        glBindBufferBase(GL_UNIFORM_BUFFER, index, m_ubo);
+        glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
 
+
+    void clearSSBO(int index) {
+        glBindBufferBase(GL_SHADER_STORAGE_BUFFER, index, 0);
+    }
+
+    void clearUBO(int index) {
+        glBindBufferBase(GL_UNIFORM_BUFFER, index, 0);
+    }
 
     static void dispatch(unsigned int xGroup, unsigned int yGroup, unsigned int zGroup) {
         glDispatchCompute(xGroup, yGroup, zGroup);

@@ -132,6 +132,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/AgentSystem.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/AgentSystem.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
 		<Unit filename="/home/loucas/CLionProjects/SlimeMoldSimulation/ComputeShader.h">
 			<Option target="SlimeMoldSimulation"/>
 		</Unit>

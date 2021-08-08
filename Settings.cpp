@@ -1,8 +1,7 @@
-#include <glm/vec3.hpp>
 #include "Settings.h"
 
 
-Settings::Settings(Window *window) {
+Settings::Settings(Window *window, AgentSystem *system) : m_numSpecies("1"), m_agentSystem(system) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
@@ -23,6 +22,10 @@ Settings::Settings(Window *window) {
             GL_READ_ONLY);
 
     this->m_currentTexture = this->m_playTexture;
+
+    for (int i = 0; i < MAX_SPECIES; i++) {
+        this->m_speciesItems[i] = strdup(std::to_string(i + 1).c_str());
+    }
 
 }
 
@@ -64,6 +67,31 @@ void Settings::init() {
 
 
         if (ImGui::CollapsingHeader("Agent Settings")) {
+            if (ImGui::BeginCombo("Number of Species", this->m_numSpecies)) {
+                for (int i = 0; i < MAX_SPECIES; i++) {
+                    if (ImGui::Selectable(this->m_speciesItems[i])) {
+                        this->m_numSpecies = this->m_speciesItems[i];
+                    }
+                }
+                ImGui::EndCombo();
+            }
+            ImGui::Text("Species Settings");
+            int currentNumSpecies;
+            sscanf(this->m_numSpecies, "%d", &currentNumSpecies);
+            for (int i = 0; i < currentNumSpecies; i++) {
+                if (ImGui::CollapsingHeader(std::to_string(i + 1).c_str())) {
+                    std::cout << "Index: " << i << std::endl;
+                    ImGui::SliderFloat("Speed", &this->m_agentSystem->speciesSpecs[i].speed, 0.0f, 300.0f);
+                    ImGui::SliderFloat("Turn Speed", &this->m_agentSystem->speciesSpecs[i].turnSpeed, 0.0f, 300.0f);
+                    ImGui::SliderFloat("Sensor Offset", &this->m_agentSystem->speciesSpecs[i].sensorOffsetDistance,
+                                       0.0f, 50.0f);
+                    ImGui::SliderFloat("Sensor Angle", &this->m_agentSystem->speciesSpecs[i].sensorAngleOffset, 0.0f,
+                                       2.0f);
+                    ImGui::SliderInt("Sensor Size", &this->m_agentSystem->speciesSpecs[i].sensorSize, 0, 10);
+                }
+            }
+
+
             ImGui::SliderFloat("Speed", &this->m_simulationSpeed, 0.0f, 300.0f);
             ImGui::SliderFloat("Turn Speed", &this->m_turnSpeed, 0.0f, 300.0f);
             ImGui::SliderFloat("Sensor Offset", &this->m_sensorOffsetDistance, 0.0f, 50.0f);

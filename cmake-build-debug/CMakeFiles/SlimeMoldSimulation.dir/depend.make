@@ -5,6 +5,9 @@ CMakeFiles/SlimeMoldSimulation.dir/glad.c.o: \
  ../include/KHR/khrplatform.h \
  ../include/glad/glad.h \
  ../glad.c
+CMakeFiles/SlimeMoldSimulation.dir/AgentSystem.cpp.o: \
+ ../AgentSystem.cpp \
+ ../AgentSystem.h
 CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o: \
  ../include/KHR/khrplatform.h \
  ../include/glad/glad.h \
@@ -20,6 +23,7 @@ CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: \
  ../include/KHR/khrplatform.h \
  ../include/glad/glad.h \
  ../include/stb_image.h \
+ ../AgentSystem.h \
  ../Settings.cpp \
  ../Settings.h \
  ../Texture.h \
@@ -32,6 +36,7 @@ CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o: \
  ../include/KHR/khrplatform.h \
  ../include/glad/glad.h \
  ../include/stb_image.h \
+ ../AgentSystem.h \
  ../ComputeShader.h \
  ../Framebuffer.h \
  ../Settings.h \
@@ -68,6 +73,7 @@ CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o: \
  ../include/KHR/khrplatform.h \
  ../include/glad/glad.h \
  ../include/stb_image.h \
+ ../AgentSystem.h \
  ../ComputeShader.h \
  ../Framebuffer.h \
  ../Settings.h \
