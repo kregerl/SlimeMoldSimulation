@@ -45,7 +45,10 @@ void Simulation::run() {
                                          &this->m_agentSystem->agents[0]);
         }
 
+
         this->m_agentShader->use();
+//        this->m_agentShader->clearUBO(2);
+        this->m_agentShader->useUBO(2, MAX_SPECIES * sizeof(SpeciesSpec), &this->m_agentSystem->speciesSpecs[0]);
         this->m_agentShader->setVec3("color", this->m_settings->getColor());
         this->m_agentShader->setFloat("deltaTime", deltaTime);
         this->m_agentShader->setFloat("speed", this->m_settings->getSpeed());

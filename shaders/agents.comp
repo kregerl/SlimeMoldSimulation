@@ -30,11 +30,11 @@ layout (std140, binding = 2) uniform SpeciesSpecBlock {
 
 uniform vec3 color;
 uniform float deltaTime;
-uniform float speed;
-uniform float turnSpeed;
-uniform float sensorOffsetDistance;
-uniform float sensorAngleOffset;
-uniform int sensorSize;
+//uniform float speed;
+//uniform float turnSpeed;
+//uniform float sensorOffsetDistance;
+//uniform float sensorAngleOffset;
+//uniform int sensorSize;
 uniform bool isRunning;
 
 ivec2 size = imageSize(imageOutput);
@@ -56,13 +56,14 @@ float scaleTo01(uint random) {
 }
 
 float sense(Agent agent, float sensorAngleOffset){
+    SpeciesSpec spec = speciesSpec[agent.speciesIndex];
     float sensorAngle = agent.angle + sensorAngleOffset;
     vec2 sensorDir = vec2(cos(sensorAngle), sin(sensorAngle));
-    ivec2 sensorCenter = ivec2(vec2(agent.x, agent.y) + sensorDir * sensorOffsetDistance);
+    ivec2 sensorCenter = ivec2(vec2(agent.x, agent.y) + sensorDir * spec.sensorOffsetDistance);
     float sum = 0.0;
 
-    for (int x_off = -sensorSize; x_off <= sensorSize; x_off++)
-    for (int y_off = -sensorSize; y_off <= sensorSize; y_off++)
+    for (int x_off = -spec.sensorSize; x_off <= spec.sensorSize; x_off++)
+    for (int y_off = -spec.sensorSize; y_off <= spec.sensorSize; y_off++)
     {
         ivec2 pos = sensorCenter + ivec2(x_off, y_off);
         if (pos.x >= 0 && pos.x < size.x && pos.y >= 0 && pos.y < size.y)
@@ -78,10 +79,9 @@ void main() {
     SpeciesSpec spec = speciesSpec[agent.speciesIndex];
     if (isRunning) {
 
-
         float forwardWeight = sense(agent, 0);
-        float leftWeight = sense(agent, sensorAngleOffset);
-        float rightWeight = sense(agent, -sensorAngleOffset);
+        float leftWeight = sense(agent, spec.sensorAngleOffset);
+        float rightWeight = sense(agent, -spec.sensorAngleOffset);
 
         uint randomSteer = hash(uint(agent.y * size.y + agent.x + hash(index)));
         float steerStrength = scaleTo01(randomSteer);
@@ -89,16 +89,16 @@ void main() {
         if (forwardWeight > leftWeight && forwardWeight > rightWeight) {
             agents[index].angle = agents[index].angle;
         } else if (forwardWeight < leftWeight && forwardWeight < rightWeight) {
-            agents[index].angle += (steerStrength - 0.5) * 2 * turnSpeed * deltaTime;
+            agents[index].angle += (steerStrength - 0.5) * 2 * spec.turnSpeed * deltaTime;
         } else if (rightWeight > leftWeight) {
-            agents[index].angle -= steerStrength * turnSpeed * deltaTime;
+            agents[index].angle -= steerStrength * spec.turnSpeed * deltaTime;
         } else if (leftWeight > rightWeight) {
-            agents[index].angle += steerStrength * turnSpeed * deltaTime;
+            agents[index].angle += steerStrength * spec.turnSpeed * deltaTime;
         }
 
         vec2 position = vec2(agent.x, agent.y);
         vec2 direction = vec2(cos(agent.angle), sin(agent.angle));
-        position += direction * speed * deltaTime;
+        position += direction * spec.speed * deltaTime;
 
 
         // Handle collisions with sides of screen

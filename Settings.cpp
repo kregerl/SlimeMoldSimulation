@@ -80,23 +80,33 @@ void Settings::init() {
             sscanf(this->m_numSpecies, "%d", &currentNumSpecies);
             for (int i = 0; i < currentNumSpecies; i++) {
                 if (ImGui::CollapsingHeader(std::to_string(i + 1).c_str())) {
-                    std::cout << "Index: " << i << std::endl;
-                    ImGui::SliderFloat("Speed", &this->m_agentSystem->speciesSpecs[i].speed, 0.0f, 300.0f);
-                    ImGui::SliderFloat("Turn Speed", &this->m_agentSystem->speciesSpecs[i].turnSpeed, 0.0f, 300.0f);
-                    ImGui::SliderFloat("Sensor Offset", &this->m_agentSystem->speciesSpecs[i].sensorOffsetDistance,
+                    std::cout << this->m_agentSystem->speciesSpecs[i].speed << std::endl;
+                    std::string speed = "Speed";
+                    std::string turnSpeed = "Turn Speed";
+                    std::string sensorOffset = "Sensor Offset";
+                    std::string sensorAngle = "Sensor Angle";
+                    std::string sensorSize = "Sensor Size";
+                    ImGui::SliderFloat(speed.append(i, ' ').c_str(), &this->m_agentSystem->speciesSpecs[i].speed, 0.0f,
+                                       300.0f);
+                    ImGui::SliderFloat(turnSpeed.append(i, ' ').c_str(),
+                                       &this->m_agentSystem->speciesSpecs[i].turnSpeed, 0.0f, 300.0f);
+                    ImGui::SliderFloat(sensorOffset.append(i, ' ').c_str(),
+                                       &this->m_agentSystem->speciesSpecs[i].sensorOffsetDistance,
                                        0.0f, 50.0f);
-                    ImGui::SliderFloat("Sensor Angle", &this->m_agentSystem->speciesSpecs[i].sensorAngleOffset, 0.0f,
+                    ImGui::SliderFloat(sensorAngle.append(i, ' ').c_str(),
+                                       &this->m_agentSystem->speciesSpecs[i].sensorAngleOffset, 0.0f,
                                        2.0f);
-                    ImGui::SliderInt("Sensor Size", &this->m_agentSystem->speciesSpecs[i].sensorSize, 0, 10);
+                    ImGui::SliderInt(sensorSize.append(i, ' ').c_str(),
+                                     &this->m_agentSystem->speciesSpecs[i].sensorSize, 0, 10);
                 }
             }
 
 
-            ImGui::SliderFloat("Speed", &this->m_simulationSpeed, 0.0f, 300.0f);
-            ImGui::SliderFloat("Turn Speed", &this->m_turnSpeed, 0.0f, 300.0f);
-            ImGui::SliderFloat("Sensor Offset", &this->m_sensorOffsetDistance, 0.0f, 50.0f);
-            ImGui::SliderFloat("Sensor Angle", &this->m_sensorAngle, 0.0f, 2.0f);
-            ImGui::SliderInt("Sensor Size", &this->m_sensorSize, 0, 10);
+//            ImGui::SliderFloat("Speed", &this->m_simulationSpeed, 0.0f, 300.0f);
+//            ImGui::SliderFloat("Turn Speed", &this->m_turnSpeed, 0.0f, 300.0f);
+//            ImGui::SliderFloat("Sensor Offset", &this->m_sensorOffsetDistance, 0.0f, 50.0f);
+//            ImGui::SliderFloat("Sensor Angle", &this->m_sensorAngle, 0.0f, 2.0f);
+//            ImGui::SliderInt("Sensor Size", &this->m_sensorSize, 0, 10);
         }
 
 

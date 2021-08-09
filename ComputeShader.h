@@ -65,7 +65,7 @@ public:
     void useUBO(int index, size_t size, void *data) {
         glGenBuffers(1, &m_ubo);
         glBindBuffer(GL_UNIFORM_BUFFER, m_ubo);
-        glBufferData(GL_UNIFORM_BUFFER, size, data, GL_STATIC_COPY);
+        glBufferData(GL_UNIFORM_BUFFER, size, data, GL_DYNAMIC_COPY);
         glBindBufferBase(GL_UNIFORM_BUFFER, index, m_ubo);
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }

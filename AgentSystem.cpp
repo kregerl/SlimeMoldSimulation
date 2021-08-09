@@ -17,7 +17,7 @@ void AgentSystem::init(int width, int height) {
     for (int i = 0; i < MAX_SPECIES; i++) {
         // Working but needs to be editable by the settings class.
         if (i == 0) {
-            this->speciesSpecs[i] = SpeciesSpec{glm::vec3(1.0f, 0.0f, 1.0f), 80.0f, 100.0f, 16.0f, 0.6f, 3};
+            this->speciesSpecs[i] = SpeciesSpec{glm::vec3(1.0f, 0.0f, 1.0f), 0.0f, 100.0f, 16.0f, 0.6f, 3};
         } else {
             this->speciesSpecs[i] = DEFAULT_SPECIES_SPEC;
         }
@@ -39,7 +39,7 @@ void AgentSystem::init(int width, int height) {
                     x = posX(random);
                     y = posY(random);
                 } while (powf(x - width * 0.5f, 2) + powf(y - height * 0.5f, 2) > (radius * radius));
-                agents.at(i) = {x, y, angle(random), /*randIndex(random)*/1};
+                agents.at(i) = {x, y, angle(random), /*randIndex(random)*/0};
 
 
             }
