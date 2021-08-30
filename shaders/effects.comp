@@ -16,11 +16,11 @@ uniform bool shouldBlur;
 uniform bool isRunning;
 
 void main() {
-    if (isRunning) {
 
+    if (isRunning) {
         ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
-        ivec2 imageSize = imageSize(image);
         vec4 original = imageLoad(image, coords);
+        ivec2 imageSize = imageSize(image);
         // Basic gaussian blur
         vec4 blur;
         if (shouldBlur) {

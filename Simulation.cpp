@@ -16,6 +16,7 @@ Simulation::Simulation(int width, int height) {
     this->m_agentShader->useUBO(2, MAX_SPECIES * sizeof(SpeciesSpec), &this->m_agentSystem->speciesSpecs[0]);
     this->m_effectShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/effects.comp");
 
+
     this->m_framebuffer = new Framebuffer(width, height, GL_READ_WRITE);
 
     this->m_sprite = new Sprite(-1.0f, 1.0f, 1.0f, -1.0f, this->m_framebuffer->getTextureAttachment()->id);
@@ -41,6 +42,7 @@ void Simulation::run() {
             this->m_settings->m_shouldReset = !this->m_settings->m_shouldReset;
             this->m_agentShader->clearSSBO(1);
             this->m_settings->setPlaying(false);
+            this->m_agentSystem->init(this->m_window->getWidth(), this->m_window->getHeight());
             this->m_agentShader->useSSBO(1, this->m_agentSystem->getNumAgents() * sizeof(Agent),
                                          &this->m_agentSystem->agents[0]);
         }
@@ -49,6 +51,7 @@ void Simulation::run() {
         this->m_agentShader->use();
 //        this->m_agentShader->clearUBO(2);
         this->m_agentShader->useUBO(2, MAX_SPECIES * sizeof(SpeciesSpec), &this->m_agentSystem->speciesSpecs[0]);
+        this->m_agentShader->setInt("currentNumSpecies", this->m_agentSystem->currentNumSpecies);
         this->m_agentShader->setVec3("color", this->m_settings->getColor());
         this->m_agentShader->setFloat("deltaTime", deltaTime);
         this->m_agentShader->setFloat("speed", this->m_settings->getSpeed());

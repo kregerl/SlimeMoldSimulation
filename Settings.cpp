@@ -71,14 +71,15 @@ void Settings::init() {
                 for (int i = 0; i < MAX_SPECIES; i++) {
                     if (ImGui::Selectable(this->m_speciesItems[i])) {
                         this->m_numSpecies = this->m_speciesItems[i];
+                        this->m_agentSystem->currentNumSpecies = *this->m_numSpecies - '0';
+                        std::cout << this->m_agentSystem->currentNumSpecies << std::endl;
                     }
                 }
                 ImGui::EndCombo();
             }
             ImGui::Text("Species Settings");
-            int currentNumSpecies;
-            sscanf(this->m_numSpecies, "%d", &currentNumSpecies);
-            for (int i = 0; i < currentNumSpecies; i++) {
+            sscanf(this->m_numSpecies, "%d", &this->m_agentSystem->currentNumSpecies);
+            for (int i = 0; i < this->m_agentSystem->currentNumSpecies; i++) {
                 if (ImGui::CollapsingHeader(std::to_string(i + 1).c_str())) {
                     std::cout << this->m_agentSystem->speciesSpecs[i].speed << std::endl;
                     std::string speed = "Speed";

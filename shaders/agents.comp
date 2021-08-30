@@ -16,6 +16,7 @@ struct Agent {
     float x, y;
     float angle;
     int speciesIndex;
+    vec4 speciesMask;
 };
 
 layout (local_size_x = 64, local_size_y = 1, local_size_z = 1) in;
@@ -28,13 +29,9 @@ layout (std140, binding = 2) uniform SpeciesSpecBlock {
     SpeciesSpec speciesSpec[MAX_SPECIES];
 };
 
+uniform int currentNumSpecies;
 uniform vec3 color;
 uniform float deltaTime;
-//uniform float speed;
-//uniform float turnSpeed;
-//uniform float sensorOffsetDistance;
-//uniform float sensorAngleOffset;
-//uniform int sensorSize;
 uniform bool isRunning;
 
 ivec2 size = imageSize(imageOutput);
@@ -62,12 +59,17 @@ float sense(Agent agent, float sensorAngleOffset){
     ivec2 sensorCenter = ivec2(vec2(agent.x, agent.y) + sensorDir * spec.sensorOffsetDistance);
     float sum = 0.0;
 
-    for (int x_off = -spec.sensorSize; x_off <= spec.sensorSize; x_off++)
-    for (int y_off = -spec.sensorSize; y_off <= spec.sensorSize; y_off++)
-    {
-        ivec2 pos = sensorCenter + ivec2(x_off, y_off);
-        if (pos.x >= 0 && pos.x < size.x && pos.y >= 0 && pos.y < size.y)
-        sum += dot(imageLoad(imageOutput, pos), vec4(1.0) * 2 - 1);
+    vec4 senseWeight = agent.speciesMask;
+    if (currentNumSpecies > 1) {
+        senseWeight = senseWeight * 2.0 - 1;
+    }
+
+    for (int x_off = -spec.sensorSize; x_off <= spec.sensorSize; x_off++) {
+        for (int y_off = -spec.sensorSize; y_off <= spec.sensorSize; y_off++){
+            ivec2 pos = sensorCenter + ivec2(x_off, y_off);
+            if (pos.x >= 0 && pos.x < size.x && pos.y >= 0 && pos.y < size.y)
+            sum += dot(senseWeight, imageLoad(imageOutput, pos));
+        }
     }
 
     return sum;
@@ -113,7 +115,7 @@ void main() {
         agents[index].x = position.x;
         agents[index].y = position.y;
     }
-    imageStore(imageOutput, ivec2(agent.x, agent.y), vec4(spec.color.rgb, 1.0));
+    imageStore(imageOutput, ivec2(agent.x, agent.y), agent.speciesMask);
 }
 
 
