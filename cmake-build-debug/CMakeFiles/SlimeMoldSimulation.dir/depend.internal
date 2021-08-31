@@ -24,6 +24,7 @@ CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o
  ../include/glad/glad.h
  ../include/stb_image.h
  /home/loucas/CLionProjects/SlimeMoldSimulation/AgentSystem.h
+ /home/loucas/CLionProjects/SlimeMoldSimulation/Framebuffer.h
  /home/loucas/CLionProjects/SlimeMoldSimulation/Settings.cpp
  /home/loucas/CLionProjects/SlimeMoldSimulation/Settings.h
  /home/loucas/CLionProjects/SlimeMoldSimulation/Texture.h

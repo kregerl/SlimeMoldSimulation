@@ -24,6 +24,7 @@ CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o: \
  ../include/glad/glad.h \
  ../include/stb_image.h \
  ../AgentSystem.h \
+ ../Framebuffer.h \
  ../Settings.cpp \
  ../Settings.h \
  ../Texture.h \

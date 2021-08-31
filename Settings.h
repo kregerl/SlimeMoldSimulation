@@ -9,6 +9,7 @@
 #include "Window.h"
 #include "Texture.h"
 #include "AgentSystem.h"
+#include "Framebuffer.h"
 
 #define GLSL_VERSION "#version 460 core"
 #define IMAGE_BUTTON_SIZE ImVec2(24, 24)
@@ -19,7 +20,9 @@ class Settings {
 public:
 
     bool m_shouldReset = false;
-
+    glm::vec3 speciesColor1 = {1.0, 0.0, 0.0};
+    glm::vec3 speciesColor2 = {0.0, 1.0, 0.0};
+    glm::vec3 speciesColor3 = {0.0, 0.0, 1.0};
 
     Settings(Window *window, AgentSystem *system);
 
@@ -36,6 +39,7 @@ public:
 
     [[maybe_unused]] [[nodiscard]]
     glm::vec3 getColorMod() const;
+
 
     [[maybe_unused]] [[nodiscard]]
     float getSpeed() const;
@@ -80,6 +84,7 @@ private:
     Texture *m_playTexture;
     Texture *m_pauseTexture;
     Texture *m_resetTexture;
+
 
     bool m_playing = true;
     bool m_showWindow = true;

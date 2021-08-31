@@ -20,9 +20,6 @@
 
 class Simulation {
 private:
-//    const size_t m_numAgents;
-//    std::vector<Agent> m_agents;
-//    std::vector<SpeciesSpec> m_speciesSpecs;
 
     Window *m_window;
     AgentSystem *m_agentSystem;
@@ -30,7 +27,8 @@ private:
     Shader *m_shader;
     ComputeShader *m_agentShader;
     ComputeShader *m_effectShader;
-    Framebuffer *m_framebuffer;
+    ComputeShader *m_colorShader;
+    Framebuffer *m_simulationFramebuffer;
     Sprite *m_sprite;
 
 public:

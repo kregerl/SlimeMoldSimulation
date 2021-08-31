@@ -16,7 +16,6 @@ struct Agent {
     float x, y;
     float angle;
     int speciesIndex;
-    vec4 speciesMask;
 };
 
 layout (local_size_x = 64, local_size_y = 1, local_size_z = 1) in;
@@ -52,23 +51,23 @@ float scaleTo01(uint random) {
     return float(random) / 4294967295.0;
 }
 
-float sense(Agent agent, float sensorAngleOffset){
+float sense(Agent agent, float sensorAngleOffset, vec4 speciesMask){
     SpeciesSpec spec = speciesSpec[agent.speciesIndex];
     float sensorAngle = agent.angle + sensorAngleOffset;
     vec2 sensorDir = vec2(cos(sensorAngle), sin(sensorAngle));
     ivec2 sensorCenter = ivec2(vec2(agent.x, agent.y) + sensorDir * spec.sensorOffsetDistance);
     float sum = 0.0;
 
-    vec4 senseWeight = agent.speciesMask;
+    vec4 senseWeight = speciesMask;
     if (currentNumSpecies > 1) {
-        senseWeight = senseWeight * 2.0 - 1;
+        senseWeight = speciesMask * 2.0 - 1.0;
     }
 
     for (int x_off = -spec.sensorSize; x_off <= spec.sensorSize; x_off++) {
         for (int y_off = -spec.sensorSize; y_off <= spec.sensorSize; y_off++){
             ivec2 pos = sensorCenter + ivec2(x_off, y_off);
             if (pos.x >= 0 && pos.x < size.x && pos.y >= 0 && pos.y < size.y)
-            sum += dot(senseWeight, imageLoad(imageOutput, pos));
+            sum += dot(imageLoad(imageOutput, pos), senseWeight);
         }
     }
 
@@ -79,11 +78,14 @@ void main() {
     uint index = gl_GlobalInvocationID.x;
     Agent agent = agents[index];
     SpeciesSpec spec = speciesSpec[agent.speciesIndex];
+    // Use speciesIndex to create a mask for each species.
+    vec4 speciesMask = vec4(0.0, 0.0, 0.0, 1.0);
+    speciesMask[agent.speciesIndex] = 1.0;
     if (isRunning) {
 
-        float forwardWeight = sense(agent, 0);
-        float leftWeight = sense(agent, spec.sensorAngleOffset);
-        float rightWeight = sense(agent, -spec.sensorAngleOffset);
+        float forwardWeight = sense(agent, 0, speciesMask);
+        float leftWeight = sense(agent, spec.sensorAngleOffset, speciesMask);
+        float rightWeight = sense(agent, -spec.sensorAngleOffset, speciesMask);
 
         uint randomSteer = hash(uint(agent.y * size.y + agent.x + hash(index)));
         float steerStrength = scaleTo01(randomSteer);
@@ -115,7 +117,7 @@ void main() {
         agents[index].x = position.x;
         agents[index].y = position.y;
     }
-    imageStore(imageOutput, ivec2(agent.x, agent.y), agent.speciesMask);
+    imageStore(imageOutput, ivec2(agent.x, agent.y), speciesMask);
 }
 
 

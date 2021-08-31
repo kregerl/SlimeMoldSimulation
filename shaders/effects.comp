@@ -6,7 +6,7 @@ layout (local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
 //layout (binding = 0, rgba32f) uniform readonly image2D imageInput;
 //layout (binding = 0, rgba32f) uniform writeonly image2D imageOutput;
 // ------------------------------------------------------------------
-layout (binding = 0, rgba32f) uniform image2D image;
+layout (rgba32f, binding = 0) uniform image2D imageOutput;
 
 uniform vec3 colorMod;
 uniform float deltaTime;
@@ -19,8 +19,8 @@ void main() {
 
     if (isRunning) {
         ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
-        vec4 original = imageLoad(image, coords);
-        ivec2 imageSize = imageSize(image);
+        vec4 original = imageLoad(imageOutput, coords);
+        ivec2 imageSize = imageSize(imageOutput);
         // Basic gaussian blur
         vec4 blur;
         if (shouldBlur) {
@@ -29,7 +29,7 @@ void main() {
                 for (int j = -1; j <= 1; j++) {
                     ivec2 neighborCoords = ivec2(coords.x + i, coords.y + j);
                     if (neighborCoords.x >= 0 && neighborCoords.x < imageSize.x && neighborCoords.y >= 0 && neighborCoords.y <= imageSize.y) {
-                        sum += imageLoad(image, neighborCoords);
+                        sum += imageLoad(imageOutput, neighborCoords);
                     }
                 }
             }
@@ -44,7 +44,7 @@ void main() {
 
         vec4 processedValue = vec4(evaporatedAndDiffusedBlur.r - colorMod.x, evaporatedAndDiffusedBlur.g - colorMod.y, evaporatedAndDiffusedBlur.b - colorMod.z, evaporatedAndDiffusedBlur.a);
 
-        imageStore(image, coords, processedValue);
+        imageStore(imageOutput, coords, processedValue);
     }
 
 }

@@ -12,7 +12,6 @@ struct Agent {
     float x, y;
     float angle;
     int speciesIndex;
-    glm::vec4 speciesMask;
 };
 
 enum SpawnPosition {
@@ -33,25 +32,22 @@ class AgentSystem {
 public:
     std::vector<Agent> agents;
     std::vector<SpeciesSpec> speciesSpecs;
-    const std::vector<glm::vec4> speciesColors = {glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),
-                                                  glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)};
     int currentNumSpecies = 1;
 
     AgentSystem(int width, int height, size_t numAgents);
 
     ~AgentSystem();
 
-    void updateSpecs(std::vector<SpeciesSpec> &specs);
 
     int getNumAgents() const;
 
     void init(int width, int height);
+
 private:
     const size_t m_numAgents;
     SpawnPosition m_spawnPos;
 
-
-
+    int signum(int val) const;
 };
 
 

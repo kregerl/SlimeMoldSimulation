@@ -9,6 +9,8 @@ class Framebuffer {
 public:
     Framebuffer(int width, int height, GLenum access);
 
+    Framebuffer(int width, int height, GLenum access, GLuint texture);
+
     ~Framebuffer();
 
     void checkErrors();
@@ -18,6 +20,8 @@ public:
     void unbind();
 
     Texture *getTextureAttachment() const;
+
+    GLuint getId() const;
 
 
 private:

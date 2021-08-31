@@ -13,6 +13,13 @@ Settings::Settings(Window *window, AgentSystem *system) : m_numSpecies("1"), m_a
     std::fill(this->m_agentColor, this->m_agentColor + PICKER_SIZE, 1);
     std::fill(this->m_effectColor, this->m_effectColor + PICKER_SIZE, 0);
 
+//    this->m_speciesColors.resize(3);
+//    int index = 0;
+//    for (int i = 0; i < 3; i++) {
+//        this->m_speciesColors[i] = {0, 0, 0};
+//        this->m_speciesColors[i][index++] = 1.0;
+//    }
+
     this->m_playTexture = new Texture("/home/loucas/CLionProjects/SlimeMoldSimulation/images/play32xwhite.png",
                                       GL_READ_ONLY);
     this->m_pauseTexture = new Texture("/home/loucas/CLionProjects/SlimeMoldSimulation/images/pause32xwhite.png",
@@ -40,7 +47,6 @@ void Settings::init() {
     if (this->m_showWindow) {
         ImGui::Begin("Settings", &this->m_showWindow);
 
-        ImGui::ColorEdit3("Color", this->m_agentColor);
 
         this->m_currentTexture = this->m_playing ? this->m_pauseTexture : this->m_playTexture;
 
@@ -68,11 +74,10 @@ void Settings::init() {
 
         if (ImGui::CollapsingHeader("Agent Settings")) {
             if (ImGui::BeginCombo("Number of Species", this->m_numSpecies)) {
-                for (int i = 0; i < MAX_SPECIES; i++) {
-                    if (ImGui::Selectable(this->m_speciesItems[i])) {
-                        this->m_numSpecies = this->m_speciesItems[i];
+                for (auto &m_speciesItem : this->m_speciesItems) {
+                    if (ImGui::Selectable(m_speciesItem)) {
+                        this->m_numSpecies = m_speciesItem;
                         this->m_agentSystem->currentNumSpecies = *this->m_numSpecies - '0';
-                        std::cout << this->m_agentSystem->currentNumSpecies << std::endl;
                     }
                 }
                 ImGui::EndCombo();
@@ -81,12 +86,12 @@ void Settings::init() {
             sscanf(this->m_numSpecies, "%d", &this->m_agentSystem->currentNumSpecies);
             for (int i = 0; i < this->m_agentSystem->currentNumSpecies; i++) {
                 if (ImGui::CollapsingHeader(std::to_string(i + 1).c_str())) {
-                    std::cout << this->m_agentSystem->speciesSpecs[i].speed << std::endl;
                     std::string speed = "Speed";
                     std::string turnSpeed = "Turn Speed";
                     std::string sensorOffset = "Sensor Offset";
                     std::string sensorAngle = "Sensor Angle";
                     std::string sensorSize = "Sensor Size";
+                    std::string speciesColor = "Species Color";
                     ImGui::SliderFloat(speed.append(i, ' ').c_str(), &this->m_agentSystem->speciesSpecs[i].speed, 0.0f,
                                        300.0f);
                     ImGui::SliderFloat(turnSpeed.append(i, ' ').c_str(),
@@ -99,6 +104,8 @@ void Settings::init() {
                                        2.0f);
                     ImGui::SliderInt(sensorSize.append(i, ' ').c_str(),
                                      &this->m_agentSystem->speciesSpecs[i].sensorSize, 0, 10);
+                    ImGui::ColorEdit3(speciesColor.append(i, ' ').c_str(),
+                                      i == 0 ? &speciesColor1[0] : i == 1 ? &speciesColor2[0] : &speciesColor3[0]);
                 }
             }
 
@@ -131,13 +138,14 @@ void Settings::shutdown() {
 }
 
 glm::vec3 Settings::getColor() const {
-    return glm::vec3(this->m_agentColor[0], this->m_agentColor[1], this->m_agentColor[2]);
+    return {this->m_agentColor[0], this->m_agentColor[1], this->m_agentColor[2]};
 };
 
 
 glm::vec3 Settings::getColorMod() const {
-    return glm::vec3(this->m_effectColor[0], this->m_effectColor[1], this->m_effectColor[2]);
+    return {this->m_effectColor[0], this->m_effectColor[1], this->m_effectColor[2]};
 }
+
 
 float Settings::getSpeed() const {
     return this->m_simulationSpeed;

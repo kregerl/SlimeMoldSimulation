@@ -1,13 +1,18 @@
 #include "Framebuffer.h"
 
 
-Framebuffer::Framebuffer(int width, int height, GLenum access) {
+Framebuffer::Framebuffer(int width, int height, GLenum access) : Framebuffer(width, height, access,
+                                                                             GL_COLOR_ATTACHMENT0) {
+
+}
+
+Framebuffer::Framebuffer(int width, int height, GLenum access, GLuint texture) {
     glGenFramebuffers(1, &this->m_fbo);
     this->m_colorTexture = new Texture(width, height, access);
     this->m_colorTexture->use();
     this->bind();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_colorTexture->id, 0);
-//    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, this->m_colorTexture->id, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, texture, GL_TEXTURE_2D, this->m_colorTexture->id, 0);
+    //    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, this->m_colorTexture->id, 0);
     this->checkErrors();
     this->unbind();
 }
@@ -38,4 +43,8 @@ void Framebuffer::unbind() {
 
 Texture *Framebuffer::getTextureAttachment() const {
     return this->m_colorTexture;
+}
+
+GLuint Framebuffer::getId() const {
+    return this->m_fbo;
 }

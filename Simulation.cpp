@@ -15,11 +15,14 @@ Simulation::Simulation(int width, int height) {
                                  &this->m_agentSystem->agents[0]);
     this->m_agentShader->useUBO(2, MAX_SPECIES * sizeof(SpeciesSpec), &this->m_agentSystem->speciesSpecs[0]);
     this->m_effectShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/effects.comp");
+    this->m_colorShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/color.comp");
 
 
-    this->m_framebuffer = new Framebuffer(width, height, GL_READ_WRITE);
+    this->m_simulationFramebuffer = new Framebuffer(width, height, GL_READ_WRITE);
+//    this->m_displayFramebuffer = new Framebuffer(width, height, GL_READ_WRITE);
 
-    this->m_sprite = new Sprite(-1.0f, 1.0f, 1.0f, -1.0f, this->m_framebuffer->getTextureAttachment()->id);
+
+    this->m_sprite = new Sprite(-1.0f, 1.0f, 1.0f, -1.0f, this->m_simulationFramebuffer->getTextureAttachment()->id);
 
 
 }
@@ -34,8 +37,7 @@ void Simulation::run() {
 //        --------------------------------------------
         float deltaTime = m_window->getDeltaTime();
 
-        this->m_framebuffer->bind();
-
+        this->m_simulationFramebuffer->bind();
         if (this->m_settings->shouldReset()) {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
@@ -49,7 +51,6 @@ void Simulation::run() {
 
 
         this->m_agentShader->use();
-//        this->m_agentShader->clearUBO(2);
         this->m_agentShader->useUBO(2, MAX_SPECIES * sizeof(SpeciesSpec), &this->m_agentSystem->speciesSpecs[0]);
         this->m_agentShader->setInt("currentNumSpecies", this->m_agentSystem->currentNumSpecies);
         this->m_agentShader->setVec3("color", this->m_settings->getColor());
@@ -62,6 +63,14 @@ void Simulation::run() {
         this->m_agentShader->setBool("isRunning", this->m_settings->isRunning());
         ComputeShader::dispatch(this->m_agentSystem->getNumAgents() / 64, 1, 1);
 
+
+        glMemoryBarrier(GL_COLOR_BUFFER_BIT);
+
+        this->m_colorShader->use();
+        this->m_colorShader->setVec3("speciesColor1", this->m_settings->speciesColor1);
+        this->m_colorShader->setVec3("speciesColor2", this->m_settings->speciesColor2);
+        this->m_colorShader->setVec3("speciesColor3", this->m_settings->speciesColor3);
+        ComputeShader::dispatch(this->m_window->getWidth() / 8, this->m_window->getHeight() / 8, 1);
 
         glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT);
 
@@ -76,8 +85,8 @@ void Simulation::run() {
 
 
         glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+        this->m_simulationFramebuffer->unbind();
 
-        this->m_framebuffer->unbind();
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

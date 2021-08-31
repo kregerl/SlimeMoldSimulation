@@ -13,24 +13,13 @@ AgentSystem::~AgentSystem() {
 
 void AgentSystem::init(int width, int height) {
     this->agents.resize(this->m_numAgents);
-    this->speciesSpecs.resize(MAX_SPECIES);
-
-    for (int i = 0; i < MAX_SPECIES; i++) {
-        // Working but needs to be editable by the settings class.
-        // Specs should not hold the color, should be separate buffer.
-        if (i == 1) {
-            this->speciesSpecs[i] = SpeciesSpec{glm::vec3(1.0f, 0.5f, 1.0f), 80.0f, 100.0f, 16.0f, 0.6f, 3};
-        } else {
-            this->speciesSpecs[i] = DEFAULT_SPECIES_SPEC;
-        }
-    }
-
+    this->speciesSpecs = {DEFAULT_SPECIES_SPEC, DEFAULT_SPECIES_SPEC, DEFAULT_SPECIES_SPEC};
 
     std::mt19937 random;
     std::uniform_real_distribution<float> posX(0, (float) width);
     std::uniform_real_distribution<float> posY(0, (float) height);
     std::uniform_real_distribution<float> angle(0, TWO_PI);
-    std::uniform_int_distribution<int> randIndex(0, this->currentNumSpecies - 1);
+    std::uniform_int_distribution<int> species(0, this->currentNumSpecies - 1);
 
     switch (this->m_spawnPos) {
         case CIRCLE: {
@@ -41,20 +30,56 @@ void AgentSystem::init(int width, int height) {
                     x = posX(random);
                     y = posY(random);
                 } while (powf(x - width * 0.5f, 2) + powf(y - height * 0.5f, 2) > (radius * radius));
-                int index = randIndex(random);
-                agents.at(i) = {x, y, angle(random), index, this->speciesColors.at(index)};
+                int index = species(random);
+                agents.at(i) = {x, y, angle(random), index};
 
 
             }
             break;
         }
         case CENTER: {
+            float centerX = width / 2.0f;
+            float centerY = height / 2.0f;
+            for (size_t i = 0; i < this->m_numAgents; i++) {
+                int index = species(random);
+                agents.at(i) = {centerX, centerY, angle(random), index};
+            }
             break;
         }
         case EDGES: {
+            for (size_t i = 0; i < this->m_numAgents; i++) {
+                float x, y;
+                int index = species(random);
+                std::uniform_int_distribution<int> perimeterLength(0, 2 * width + 2 * height);
+                int point = perimeterLength(random);
+                if (point < (width + height)) {
+                    if (point < width) {
+                        x = point;
+                        y = 0;
+                    } else {
+                        x = width;
+                        y = point - width;
+                    }
+                } else {
+                    point -= (width + height);
+                    if (point < width) {
+                        x = width - point;
+                        y = height;
+                    } else {
+                        x = 0;
+                        y = height - (point - width);
+                    }
+                }
+                agents.at(i) = {x, y, angle(random), index};
+            }
+
             break;
         }
         case RANDOM: {
+            for (size_t i = 0; i < this->m_numAgents; i++) {
+                int index = species(random);
+                agents.at(i) = {posX(random), posY(random), angle(random), index};
+            }
             break;
         }
         default: {
@@ -69,3 +94,8 @@ void AgentSystem::init(int width, int height) {
 int AgentSystem::getNumAgents() const {
     return this->m_numAgents;
 }
+
+int AgentSystem::signum(int val) const {
+    return (val > 0) ? 1 : ((val < 0) ? -1 : 0);
+}
+
