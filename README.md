@@ -43,5 +43,4 @@ The simulation has a few basic controls that can be manipulated at runtime:
 ### Future Plans
 
 I would like to add brushes that allow the user to create new agents using the mouse. When the mouse is clicked and the
-simulation is running I would like to push the agents away from the mouse.  
-S
+simulation is running I would like to push the agents away from the mouse.
