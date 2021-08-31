@@ -2,7 +2,7 @@
 #include <iostream>
 
 AgentSystem::AgentSystem(int width, int height, size_t numAgents) : m_numAgents(numAgents),
-                                                                    m_spawnPos(SpawnPosition::CIRCLE) {
+                                                                    m_spawnPos(SpawnPosition::CENTER) {
     this->init(width, height);
 }
 

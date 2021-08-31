@@ -1,6 +1,6 @@
 # Slime Mold Simulation
 
-This is a simulaton of a slime mold written in C++ implemented as an OpenGL compute shader.  
+This is a simulation of a slime mold written in C++ implemented as an OpenGL compute shader.  
 ![img.png](images/img.png)
 The simulation has a few basic controls that can be manipulated at runtime:
 
@@ -21,6 +21,7 @@ The simulation has a few basic controls that can be manipulated at runtime:
         - Sensor Angle Offset: An offset to the agent's current angle, determines the angle that agents can sense each
           other at.
         - Sensor Size: The distance in which an agent can sense another in every direction.
+        - Color: The color of the agent, also determines whether the slime can sense another species.          
 
 ### More Images
 
@@ -30,6 +31,10 @@ The simulation has a few basic controls that can be manipulated at runtime:
 
 ![img_2.png](images/img_2.png)
 
+![img_4.png](images/img_4.png)
+
+![img_3.png](images/img_3.png)
+
 ---
 
 ### Real Slime Mold
@@ -38,9 +43,6 @@ The simulation has a few basic controls that can be manipulated at runtime:
 
 ### Future Plans
 
-I plan on implementing a play / pause and reset button, although that can be done using the agent speed slider it'll be
-a small quality of life change.  
 I would like to add brushes that allow the user to create new agents using the mouse. When the mouse is clicked and the
 simulation is running I would like to push the agents away from the mouse.  
-Species: Inspired from [Sebastian Lague's video](https://www.youtube.com/watch?v=X-iSQQgOd1A) I would also like to add
-species, where different species can be controlled individually in the settings.
+S
