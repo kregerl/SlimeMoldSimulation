@@ -5,7 +5,6 @@ This is a simulation of a slime mold written in C++ implemented as an OpenGL com
 The simulation has a few basic controls that can be manipulated at runtime:
 
 - ### Settings:
-    - Color: The main color of agents in the simulation.
     - #### Effect Settings:
         - Blur: Enables or disables blurring.
         - Diffuse Speed: How fast the agent's trails will diffuse.
