@@ -1,7 +1,8 @@
 #include "Settings.h"
 
 
-Settings::Settings(Window *window, AgentSystem *system) : m_numSpecies("1"), m_agentSystem(system) {
+Settings::Settings(Window *window, AgentSystem *system) : m_numSpecies("1"), m_agentSystem(system),
+                                                          m_spawnPosition(strdup(spawnPositionNames[0].c_str())) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
@@ -12,13 +13,6 @@ Settings::Settings(Window *window, AgentSystem *system) : m_numSpecies("1"), m_a
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
     std::fill(this->m_agentColor, this->m_agentColor + PICKER_SIZE, 1);
     std::fill(this->m_effectColor, this->m_effectColor + PICKER_SIZE, 0);
-
-//    this->m_speciesColors.resize(3);
-//    int index = 0;
-//    for (int i = 0; i < 3; i++) {
-//        this->m_speciesColors[i] = {0, 0, 0};
-//        this->m_speciesColors[i][index++] = 1.0;
-//    }
 
     this->m_playTexture = new Texture("/home/loucas/CLionProjects/SlimeMoldSimulation/images/play32xwhite.png",
                                       GL_READ_ONLY);
@@ -58,6 +52,17 @@ void Settings::init() {
 
         if (ImGui::ImageButton(this->m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
             this->m_shouldReset = !this->m_shouldReset;
+        }
+
+        if (ImGui::BeginCombo("Spawn Position", this->m_spawnPosition)) {
+            for (int i = 0; i < spawnPositionNames->size(); i++) {
+                std::string name = spawnPositionNames[i];
+                if (ImGui::Selectable(name.c_str())) {
+                    this->m_spawnPosition = strdup(name.c_str());
+                    this->m_agentSystem->setSpawnPos(spawnPositions[i]);
+                }
+            }
+            ImGui::EndCombo();
         }
 
 
@@ -109,17 +114,11 @@ void Settings::init() {
                 }
             }
 
-
-//            ImGui::SliderFloat("Speed", &this->m_simulationSpeed, 0.0f, 300.0f);
-//            ImGui::SliderFloat("Turn Speed", &this->m_turnSpeed, 0.0f, 300.0f);
-//            ImGui::SliderFloat("Sensor Offset", &this->m_sensorOffsetDistance, 0.0f, 50.0f);
-//            ImGui::SliderFloat("Sensor Angle", &this->m_sensorAngle, 0.0f, 2.0f);
-//            ImGui::SliderInt("Sensor Size", &this->m_sensorSize, 0, 10);
         }
 
 
-        if (ImGui::Button("Close Me"))
-            this->m_showWindow = false;
+//        if (ImGui::Button("Close Me"))
+//            this->m_showWindow = false;
         ImGui::End();
     }
 

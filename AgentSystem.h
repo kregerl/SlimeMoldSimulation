@@ -36,18 +36,22 @@ public:
 
     AgentSystem(int width, int height, size_t numAgents);
 
-    ~AgentSystem();
+    ~AgentSystem() = default;
 
 
     int getNumAgents() const;
 
     void init(int width, int height);
 
+    SpawnPosition getSpawnPos();
+
+    void setSpawnPos(SpawnPosition spawnPos);
+
 private:
     const size_t m_numAgents;
     SpawnPosition m_spawnPos;
 
-    int signum(int val) const;
+    static int signum(int val) ;
 };
 
 

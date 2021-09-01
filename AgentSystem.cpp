@@ -1,15 +1,10 @@
 #include "AgentSystem.h"
-#include <iostream>
 
 AgentSystem::AgentSystem(int width, int height, size_t numAgents) : m_numAgents(numAgents),
                                                                     m_spawnPos(SpawnPosition::CENTER) {
     this->init(width, height);
 }
 
-
-AgentSystem::~AgentSystem() {
-
-}
 
 void AgentSystem::init(int width, int height) {
     this->agents.resize(this->m_numAgents);
@@ -95,7 +90,15 @@ int AgentSystem::getNumAgents() const {
     return this->m_numAgents;
 }
 
-int AgentSystem::signum(int val) const {
+int AgentSystem::signum(int val) {
     return (val > 0) ? 1 : ((val < 0) ? -1 : 0);
+}
+
+SpawnPosition AgentSystem::getSpawnPos() {
+    return this->m_spawnPos;
+}
+
+void AgentSystem::setSpawnPos(SpawnPosition spawnPos) {
+    this->m_spawnPos = spawnPos;
 }
 

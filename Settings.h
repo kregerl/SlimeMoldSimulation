@@ -15,9 +15,12 @@
 #define IMAGE_BUTTON_SIZE ImVec2(24, 24)
 #define PICKER_SIZE 3
 
+const static std::string spawnPositionNames[] = {"Center", "Circle", "Edges", "Random"};
+const static SpawnPosition spawnPositions[] = {CENTER, CIRCLE, EDGES, RANDOM};
 
 class Settings {
 public:
+
 
     bool m_shouldReset = false;
     glm::vec3 speciesColor1 = {1.0, 0.0, 0.0};
@@ -26,7 +29,7 @@ public:
 
     Settings(Window *window, AgentSystem *system);
 
-    ~Settings();
+    ~Settings() = default;
 
     void init();
 
@@ -68,7 +71,7 @@ public:
     [[maybe_unused]] [[nodiscard]]
     bool isRunning() const;
 
-    [[maybe_unused]] [[nodiscard]]
+    [[maybe_unused]]
     void setPlaying(bool playing);
 
     [[maybe_unused]] [[nodiscard]]
@@ -99,6 +102,7 @@ private:
     float m_evaporateSpeed = 0.4f;
     int m_sensorSize = 3;
     char *m_numSpecies;
+    char *m_spawnPosition;
     char *m_speciesItems[MAX_SPECIES]{};
 };
 
