@@ -26,6 +26,8 @@ struct SpeciesSpec {
     float sensorAngleOffset;
     int sensorSize;
 };
+
+
 const static SpeciesSpec DEFAULT_SPECIES_SPEC = SpeciesSpec{glm::vec3(1.0f, 1.0f, 1.0f), 80.0f, 100.0f, 16.0f, 0.6f, 3};
 
 class AgentSystem {
@@ -51,7 +53,7 @@ private:
     const size_t m_numAgents;
     SpawnPosition m_spawnPos;
 
-    static int signum(int val) ;
+    static int signum(int val);
 };
 
 

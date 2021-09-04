@@ -6,6 +6,12 @@
 #include <imgui/imgui_impl_opengl3.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include <fstream>
+#include <yaml-cpp/node/node.h>
+#include <yaml-cpp/node/parse.h>
+#include <yaml-cpp/emitter.h>
+#include <yaml-cpp/stlemitter.h>
+
 #include "Window.h"
 #include "Texture.h"
 #include "AgentSystem.h"
@@ -17,6 +23,28 @@
 
 const static std::string spawnPositionNames[] = {"Center", "Circle", "Edges", "Random"};
 const static SpawnPosition spawnPositions[] = {CENTER, CIRCLE, EDGES, RANDOM};
+
+const static YAML::Emitter &operator<<(YAML::Emitter &out, const glm::vec3 &vec) {
+    std::vector<float> result;
+    result.push_back(vec.x);
+    result.push_back(vec.y);
+    result.push_back(vec.z);
+    out << YAML::BeginSeq << YAML::Flow << result << YAML::EndSeq;
+    return out;
+}
+
+const static YAML::Emitter &operator<<(YAML::Emitter &out, const SpeciesSpec &spec) {
+    out << YAML::BeginMap;
+    out << YAML::Key << "Speed" << YAML::Value << spec.speed;
+    out << YAML::Key << "Turn Speed" << YAML::Value << spec.turnSpeed;
+    out << YAML::Key << "Sensor Offset" << YAML::Value << spec.sensorOffsetDistance;
+    out << YAML::Key << "Sensor Angle" << YAML::Value << spec.sensorAngleOffset;
+    out << YAML::Key << "Sensor Size" << YAML::Value << spec.sensorSize;
+    out << YAML::Key << "Color" << YAML::Value << spec.color;
+
+    out << YAML::EndMap;
+    return out;
+}
 
 class Settings {
 public:
@@ -104,6 +132,8 @@ private:
     char *m_numSpecies;
     char *m_spawnPosition;
     char *m_speciesItems[MAX_SPECIES]{};
+
+    void exportSettings();
 };
 
 

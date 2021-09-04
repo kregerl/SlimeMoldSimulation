@@ -1,0 +1,17 @@
+Spawn Position: Center
+Effect Settings:
+  Blur: true
+  Diffuse Speed: 10
+  Evaporate Speed: 0.400000006
+  Color Mod:
+    - [0, 0, 0]
+Agent Settings:
+  Number of Species: 1
+  Species 1:
+    Speed: 80
+    Turn Speed: 100
+    Sensor Offset: 16
+    Sensor Angle: 0.600000024
+    Sensor Size: 3
+    Color:
+      - [1, 1, 1]

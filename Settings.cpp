@@ -65,6 +65,11 @@ void Settings::init() {
             ImGui::EndCombo();
         }
 
+        if (ImGui::Button("Export Settings")) {
+            exportSettings();
+            std::cout << "Here" << std::endl;
+        }
+
 
         if (ImGui::CollapsingHeader("Effect Settings")) {
             ImGui::Checkbox("Blur", &this->m_blur);
@@ -135,6 +140,38 @@ void Settings::shutdown() {
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
+
+void Settings::exportSettings() {
+    std::vector<int> effectColor(m_effectColor, m_effectColor + PICKER_SIZE);
+
+    YAML::Emitter emitter;
+    emitter << YAML::BeginMap;
+    emitter << YAML::Key << "Spawn Position" << YAML::Value << m_spawnPosition;
+    emitter << YAML::Key << "Effect Settings" << YAML::BeginMap;
+    emitter << YAML::Key << "Blur" << YAML::Value << m_blur;
+    emitter << YAML::Key << "Diffuse Speed" << YAML::Value << m_diffuseSpeed;
+    emitter << YAML::Key << "Evaporate Speed" << YAML::Value << m_evaporateSpeed;
+    emitter << YAML::Key << "Color Mod" << YAML::Value << YAML::BeginSeq << YAML::Flow << effectColor << YAML::EndSeq;
+    emitter << YAML::EndMap;
+    emitter << YAML::Key << "Agent Settings" << YAML::BeginMap;
+    emitter << YAML::Key << "Number of Species" << YAML::Value << m_agentSystem->currentNumSpecies;
+    for (int i = 0; i < m_agentSystem->currentNumSpecies; i++) {
+        emitter << YAML::Key << "Species " + std::to_string(i + 1);
+        // TODO: Doesnt work with color yet as specs need to hold the correct agent color instead of individual vars.
+        emitter << YAML::Value << m_agentSystem->speciesSpecs.at(i);
+        emitter << YAML::EndMap;
+    }
+
+    emitter << YAML::EndMap;
+
+
+    emitter << YAML::EndMap;
+    std::ofstream fout("/home/loucas/CLionProjects/SlimeMoldSimulation/settings.yaml");
+    fout << emitter.c_str();
+
+
+}
+
 
 glm::vec3 Settings::getColor() const {
     return {this->m_agentColor[0], this->m_agentColor[1], this->m_agentColor[2]};
