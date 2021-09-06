@@ -21,7 +21,6 @@ Simulation::Simulation(int width, int height) {
 
 
     this->m_simulationFramebuffer = new Framebuffer(width, height, GL_READ_WRITE);
-//    this->m_displayFramebuffer = new Framebuffer(width, height, GL_READ_WRITE);
 
 
     this->m_sprite = new Sprite(-1.0f, 1.0f, 1.0f, -1.0f, this->m_simulationFramebuffer->getTextureAttachment()->id);
