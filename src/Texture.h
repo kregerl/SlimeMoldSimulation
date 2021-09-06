@@ -12,14 +12,14 @@ private:
     GLenum m_texAccess = 0;
     int m_width = 0, m_height = 0;
 
-    void checkErrors(unsigned char *, GLuint imageChannels);
+    void checkErrors(unsigned char *, GLint imageChannels) const;
 
 public:
     GLuint id = 0;
 
     Texture(int width, int height, GLenum access);
 
-    Texture(const std::string &fileName, GLenum access, GLuint imageChannels = GL_RGBA);
+    Texture(const std::string &fileName, GLenum access, GLint imageChannels = GL_RGBA);
 
     ~Texture() = default;
 
@@ -32,7 +32,7 @@ public:
     [[nodiscard]]
     void *getImGuiTextureId() const;
 
-    void use();
+    void use() const;
 };
 
 

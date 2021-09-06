@@ -26,7 +26,7 @@ Sprite::Sprite(float x0, float y0, float x1, float y1, GLuint textureId) : m_tex
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices[0], GL_STATIC_DRAW);
 
     // (void *) 0 can be changed to nullptr
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *) 0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
 
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *) (2 * sizeof(float)));
@@ -42,7 +42,7 @@ Sprite::~Sprite() {
     glDeleteVertexArrays(1, &this->m_vao);
 }
 
-void Sprite::draw() {
+void Sprite::draw() const {
     glBindTexture(GL_TEXTURE_2D, this->m_textureId);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glDrawArrays(GL_TRIANGLES, 0, 6);

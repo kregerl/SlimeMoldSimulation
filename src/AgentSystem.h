@@ -11,6 +11,8 @@
 struct Agent {
     float x, y;
     float angle;
+
+    [[maybe_unused]]
     int speciesIndex;
 };
 
@@ -28,8 +30,6 @@ struct SpeciesSpec {
 };
 
 
-const static SpeciesSpec DEFAULT_SPECIES_SPEC = SpeciesSpec{glm::vec3(1.0f, 1.0f, 1.0f), 80.0f, 100.0f, 16.0f, 0.6f, 3};
-
 class AgentSystem {
 public:
     std::vector<Agent> agents;
@@ -41,15 +41,15 @@ public:
     ~AgentSystem() = default;
 
 
-    int getNumAgents() const;
+    [[nodiscard]] int getNumAgents() const;
 
     void init(int width, int height);
 
-    SpawnPosition getSpawnPos();
 
     void setSpawnPos(SpawnPosition spawnPos);
 
 private:
+    const SpeciesSpec DEFAULT_SPECIES_SPEC = SpeciesSpec{glm::vec3(1.0f, 1.0f, 1.0f), 80.0f, 100.0f, 16.0f, 0.6f, 3};
     const size_t m_numAgents;
     SpawnPosition m_spawnPos;
 

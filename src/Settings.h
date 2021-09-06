@@ -65,6 +65,7 @@ public:
 
     static void shutdown();
 
+
     [[maybe_unused]] [[nodiscard]]
     glm::vec3 getColor() const;
 
@@ -106,10 +107,13 @@ public:
     bool shouldReset() const;
 
 
+
+
 private:
 //    std::vector<SpeciesSpec> &specs;
 
     AgentSystem *m_agentSystem;
+    Window *m_window;
 
     Texture *m_currentTexture;
     Texture *m_playTexture;

@@ -2,7 +2,8 @@
 
 
 Settings::Settings(Window *window, AgentSystem *system) : m_numSpecies("1"), m_agentSystem(system),
-                                                          m_spawnPosition(strdup(spawnPositionNames[0].c_str())) {
+                                                          m_spawnPosition(strdup(spawnPositionNames[0].c_str())),
+                                                          m_window(window) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
@@ -14,12 +15,12 @@ Settings::Settings(Window *window, AgentSystem *system) : m_numSpecies("1"), m_a
     std::fill(this->m_agentColor, this->m_agentColor + PICKER_SIZE, 1);
     std::fill(this->m_effectColor, this->m_effectColor + PICKER_SIZE, 0);
 
-    this->m_playTexture = new Texture("/home/loucas/CLionProjects/SlimeMoldSimulation/images/play32xwhite.png",
+    this->m_playTexture = new Texture(".\\images\\play32xwhite.png",
                                       GL_READ_ONLY);
-    this->m_pauseTexture = new Texture("/home/loucas/CLionProjects/SlimeMoldSimulation/images/pause32xwhite.png",
+    this->m_pauseTexture = new Texture(".\\images\\pause32xwhite.png",
                                        GL_READ_ONLY);
     this->m_resetTexture = new Texture(
-            "/home/loucas/CLionProjects/SlimeMoldSimulation/images/reset32xwhite.png",
+            ".\\images\\reset32xwhite.png",
             GL_READ_ONLY);
 
     this->m_currentTexture = this->m_playTexture;
@@ -38,8 +39,8 @@ void Settings::init() {
     ImGui::NewFrame();
 
     // Add content to window
-    if (this->m_showWindow) {
-        ImGui::Begin("Settings", &this->m_showWindow);
+    if (m_window->showWindow) {
+        ImGui::Begin("Settings", &m_window->showWindow);
 
 
         this->m_currentTexture = this->m_playing ? this->m_pauseTexture : this->m_playTexture;
@@ -120,10 +121,6 @@ void Settings::init() {
             }
 
         }
-
-
-//        if (ImGui::Button("Close Me"))
-//            this->m_showWindow = false;
         ImGui::End();
     }
 
@@ -166,7 +163,8 @@ void Settings::exportSettings() {
 
 
     emitter << YAML::EndMap;
-    std::ofstream fout("/home/loucas/CLionProjects/SlimeMoldSimulation/settings.yaml");
+    create_directory(std::filesystem::current_path().append("settings"));
+    std::ofstream fout(std::filesystem::current_path().append("settings\\settings.yaml"));
     fout << emitter.c_str();
 
 

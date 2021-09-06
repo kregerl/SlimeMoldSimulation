@@ -87,16 +87,13 @@ void AgentSystem::init(int width, int height) {
 
 
 int AgentSystem::getNumAgents() const {
-    return this->m_numAgents;
+    return m_numAgents;
 }
 
 int AgentSystem::signum(int val) {
     return (val > 0) ? 1 : ((val < 0) ? -1 : 0);
 }
 
-SpawnPosition AgentSystem::getSpawnPos() {
-    return this->m_spawnPos;
-}
 
 void AgentSystem::setSpawnPos(SpawnPosition spawnPos) {
     this->m_spawnPos = spawnPos;

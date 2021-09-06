@@ -15,7 +15,7 @@ Texture::Texture(int width, int height, GLenum access) : m_texAccess(access), m_
     std::cout << this->id << std::endl;
 }
 
-Texture::Texture(const std::string &fileName, GLenum access, GLuint imageChannels) {
+Texture::Texture(const std::string &fileName, GLenum access, GLint imageChannels) : m_texAccess(access) {
     glGenTextures(1, &this->id);
     glBindTexture(GL_TEXTURE_2D, this->id);
 
@@ -28,7 +28,7 @@ Texture::Texture(const std::string &fileName, GLenum access, GLuint imageChannel
 
     // 7/28 unused for now, changed to a nullptr since it is unused.
     // 7/31 new nrChannels to determine the image channels, 1 GL_R, 2 GL_RG, 3 GL_RGB, 4 GL_RGBA
-    int nrChannels;
+//    int nrChannels;
     // Implement a get filesystem path.
     unsigned char *data = stbi_load(fileName.c_str(), &this->m_width, &this->m_height, /*nrChannels*/ nullptr, 0);
     this->checkErrors(data, imageChannels);
@@ -36,11 +36,11 @@ Texture::Texture(const std::string &fileName, GLenum access, GLuint imageChannel
 
 }
 
-void Texture::use() {
+void Texture::use() const {
     glBindImageTexture(0, id, 0, GL_FALSE, 0, this->m_texAccess, GL_RGBA32F);
 }
 
-void Texture::checkErrors(unsigned char *data, GLuint imageChannels) {
+void Texture::checkErrors(unsigned char *data, GLint imageChannels) const {
     if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, imageChannels, this->m_width, this->m_height, 0, imageChannels, GL_UNSIGNED_BYTE,
                      data);

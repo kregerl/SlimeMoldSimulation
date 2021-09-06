@@ -8,7 +8,7 @@
 
 class Window {
 public:
-    Window(const int width, const int height, const std::string &title);
+    Window(int width, int height, const std::string &title, bool isFullscreen = false);
 
     ~Window();
 
@@ -20,20 +20,26 @@ public:
 
     bool shouldClose();
 
+    [[nodiscard]]
     int getWidth() const;
 
+    [[nodiscard]]
     int getHeight() const;
 
-    float getDeltaTime() const;
+    [[nodiscard]]
+    double getDeltaTime() const;
 
-    bool isPaused() { return this->m_isPaused; }
+    [[nodiscard]]
+    bool isPaused() const { return this->m_isPaused; }
 
     GLFWwindow *getWindow() { return this->m_window; }
+
+    bool showWindow = true;
 
 private:
     bool m_isPaused = false;
     const int m_width, m_height;
-    float m_deltaTime = 0.0, m_prevFrame = 0.0;
+    double m_deltaTime = 0.0, m_prevFrame = 0.0;
     GLFWwindow *m_window;
 
     void processInput();

@@ -16,7 +16,9 @@
 #include "Sprite.h"
 #include "AgentSystem.h"
 
-#define NUM_AGENTS 200000
+#define NUM_AGENTS 100000
+
+
 
 class Simulation {
 private:
@@ -37,8 +39,6 @@ public:
     ~Simulation() = default;
 
     void run();
-
-    void clearColor();
 };
 
 

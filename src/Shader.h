@@ -47,13 +47,13 @@ public:
 
         // Vertex Shader
         vertex = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertex, 1, &vShader, NULL);
+        glShaderSource(vertex, 1, &vShader, nullptr);
         glCompileShader(vertex);
         checkCompileErrors(vertex, ShaderErrorType::VERTEX);
 
         // Fragment Shader
         fragment = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragment, 1, &fShader, NULL);
+        glShaderSource(fragment, 1, &fShader, nullptr);
         glCompileShader(fragment);
         checkCompileErrors(fragment, ShaderErrorType::FRAGMENT);
 
@@ -148,19 +148,19 @@ private:
     void checkCompileErrors(GLuint shader, ShaderErrorType type) {
         GLint success;
         unsigned int logSize = 1024;
-        GLchar* infoLog = new char[logSize];
+        auto *infoLog = new char[logSize];
 //        GLchar infoLog[logSize];
         if (type != ShaderErrorType::PROGRAM) {
             glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
             if (!success) {
-                glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+                glGetShaderInfoLog(shader, 1024, nullptr, infoLog);
                 std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << enumValues[type] << "\n"
                           << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
             }
         } else {
             glGetProgramiv(shader, GL_LINK_STATUS, &success);
             if (!success) {
-                glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+                glGetProgramInfoLog(shader, 1024, nullptr, infoLog);
                 std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << enumValues[type] << "\n"
                           << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
             }

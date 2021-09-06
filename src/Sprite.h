@@ -12,7 +12,7 @@ public:
 
     ~Sprite();
 
-    void draw();
+    void draw() const;
 
 private:
     GLuint m_vao = 0, m_vbo = 0;

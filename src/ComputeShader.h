@@ -37,7 +37,7 @@ public:
         unsigned int compute;
 
         compute = glCreateShader(GL_COMPUTE_SHADER);
-        glShaderSource(compute, 1, &cShader, NULL);
+        glShaderSource(compute, 1, &cShader, nullptr);
         glCompileShader(compute);
         checkCompileErrors(compute, ComputeErrorType::COMPUTE);
 
@@ -49,11 +49,11 @@ public:
         glDeleteShader(compute);
     }
 
-    void use() {
+    void use() const {
         glUseProgram(ID);
     }
 
-    void useSSBO(int index, size_t size, void *data) {
+    void useSSBO(int index, GLsizeiptr size, void *data) {
         glGenBuffers(1, &m_ssbo);
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_ssbo);
         glBufferData(GL_SHADER_STORAGE_BUFFER, size, data, GL_DYNAMIC_COPY);
@@ -62,7 +62,7 @@ public:
         std::cout << "Binding SSBO of size: " << std::to_string(size) << std::endl;
     }
 
-    void useUBO(int index, size_t size, void *data) {
+    void useUBO(int index, GLsizeiptr size, void *data) {
         glGenBuffers(1, &m_ubo);
         glBindBuffer(GL_UNIFORM_BUFFER, m_ubo);
         glBufferData(GL_UNIFORM_BUFFER, size, data, GL_DYNAMIC_COPY);
@@ -71,11 +71,12 @@ public:
     }
 
 
-    void clearSSBO(int index) {
+    static void clearSSBO(int index) {
         glBindBufferBase(GL_SHADER_STORAGE_BUFFER, index, 0);
     }
 
-    void clearUBO(int index) {
+    [[maybe_unused]]
+    static void clearUBO(int index) {
         glBindBufferBase(GL_UNIFORM_BUFFER, index, 0);
     }
 
@@ -122,18 +123,18 @@ private:
     void checkCompileErrors(GLuint shader, ComputeErrorType type) {
         GLint success;
         uint32_t logSize = 1024;
-        GLchar* infoLog = new char[logSize];
+        auto *infoLog = new char[logSize];
         if (type != ComputeErrorType::PROGRAM) {
             glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
             if (!success) {
-                glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+                glGetShaderInfoLog(shader, 1024, nullptr, infoLog);
                 std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << enumValues[type] << "\n"
                           << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
             }
         } else {
             glGetProgramiv(shader, GL_LINK_STATUS, &success);
             if (!success) {
-                glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+                glGetProgramInfoLog(shader, 1024, nullptr, infoLog);
                 std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << enumValues[type] << "\n"
                           << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
             }
