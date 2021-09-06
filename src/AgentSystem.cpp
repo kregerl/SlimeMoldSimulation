@@ -10,7 +10,7 @@ void AgentSystem::init(int width, int height) {
     this->agents.resize(this->m_numAgents);
     this->speciesSpecs = {DEFAULT_SPECIES_SPEC, DEFAULT_SPECIES_SPEC, DEFAULT_SPECIES_SPEC};
 
-    std::mt19937 random;
+    std::mt19937 random();
     std::uniform_real_distribution<float> posX(0, (float) width);
     std::uniform_real_distribution<float> posY(0, (float) height);
     std::uniform_real_distribution<float> angle(0, TWO_PI);
@@ -88,10 +88,6 @@ void AgentSystem::init(int width, int height) {
 
 int AgentSystem::getNumAgents() const {
     return m_numAgents;
-}
-
-int AgentSystem::signum(int val) {
-    return (val > 0) ? 1 : ((val < 0) ? -1 : 0);
 }
 
 

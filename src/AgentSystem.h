@@ -53,7 +53,6 @@ private:
     const size_t m_numAgents;
     SpawnPosition m_spawnPos;
 
-    static int signum(int val);
 };
 
 
