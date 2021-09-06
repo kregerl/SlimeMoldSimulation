@@ -11,7 +11,6 @@
 #include <yaml-cpp/node/parse.h>
 #include <yaml-cpp/emitter.h>
 #include <yaml-cpp/stlemitter.h>
-
 #include "Window.h"
 #include "Texture.h"
 #include "AgentSystem.h"
