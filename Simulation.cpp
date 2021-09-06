@@ -6,6 +6,7 @@ Simulation::Simulation(int width, int height) {
     this->m_window = new Window(width, height, "Slime Mold Simulation");
     this->m_settings = new Settings(this->m_window, this->m_agentSystem);
 
+    // Move to a relative execution path.
     this->m_shader = new Shader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\main.vert",
                                 "C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\main.frag");
 
