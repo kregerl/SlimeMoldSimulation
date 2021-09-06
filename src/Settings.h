@@ -109,8 +109,6 @@ public:
 
 
 private:
-//    std::vector<SpeciesSpec> &specs;
-
     AgentSystem *m_agentSystem;
     Window *m_window;
 
