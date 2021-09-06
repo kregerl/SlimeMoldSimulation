@@ -9,12 +9,13 @@ Simulation::Simulation(int width, int height) {
     // Move to a relative execution path.
     this->m_shader = new Shader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\main.vert",
                                 "C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\main.frag");
-
+    // Move to a relative execution path.
     this->m_agentShader = new ComputeShader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\agents.comp");
 
     this->m_agentShader->useSSBO(1, this->m_agentSystem->getNumAgents() * sizeof(Agent),
                                  &this->m_agentSystem->agents[0]);
     this->m_agentShader->useUBO(2, MAX_SPECIES * sizeof(SpeciesSpec), &this->m_agentSystem->speciesSpecs[0]);
+    // Move to a relative execution path.
     this->m_effectShader = new ComputeShader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\effects.comp");
     this->m_colorShader = new ComputeShader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\color.comp");
 
