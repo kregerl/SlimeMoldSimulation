@@ -41,7 +41,6 @@ const static YAML::Emitter &operator<<(YAML::Emitter &out, const SpeciesSpec &sp
     out << YAML::Key << "Sensor Angle" << YAML::Value << spec.sensorAngleOffset;
     out << YAML::Key << "Sensor Size" << YAML::Value << spec.sensorSize;
     out << YAML::Key << "Color" << YAML::Value << spec.color;
-
     out << YAML::EndMap;
     return out;
 }
