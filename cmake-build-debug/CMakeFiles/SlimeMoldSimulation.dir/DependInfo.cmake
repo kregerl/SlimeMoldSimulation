@@ -1,7 +1,3 @@
-
-# Consider dependencies only in project.
-set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
-
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
   "C"
@@ -9,44 +5,51 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/glad.c" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/glad.c.o"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/glad/src/glad.c" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/glad/src/glad.c.obj"
   )
-set(CMAKE_C_COMPILER_ID "GNU")
+set(CMAKE_C_COMPILER_ID "MSVC")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
+  "../glfw/include"
+  "../glm/glm"
+  "../glad/include"
+  "../imgui"
+  "../yaml-cpp"
   "../include"
-  "../"
+  "../glm"
   "../yaml-cpp/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/AgentSystem.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/AgentSystem.cpp.o"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/Framebuffer.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.o"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/Settings.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.o"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/Simulation.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.o"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/Sprite.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Sprite.cpp.o"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/Texture.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.o"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/Window.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Window.cpp.o"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/include/stb_image.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.o"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/main.cpp" "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/main.cpp.o"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/AgentSystem.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/AgentSystem.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Framebuffer.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Settings.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Simulation.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Sprite.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Sprite.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Texture.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Window.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Window.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/include/stb_image.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/main.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/main.cpp.obj"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "MSVC")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "../glfw/include"
+  "../glm/glm"
+  "../glad/include"
+  "../imgui"
+  "../yaml-cpp"
   "../include"
-  "../"
+  "../glm"
   "../yaml-cpp/include"
-  )
-
-# The set of dependency files which are needed:
-set(CMAKE_DEPENDS_DEPENDENCY_FILES
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/CMakeFiles/imgui.dir/DependInfo.cmake"
-  "/home/loucas/CLionProjects/SlimeMoldSimulation/cmake-build-debug/yaml-cpp/CMakeFiles/yaml-cpp.dir/DependInfo.cmake"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/imgui/CMakeFiles/imgui.dir/DependInfo.cmake"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/yaml-cpp/CMakeFiles/yaml-cpp.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

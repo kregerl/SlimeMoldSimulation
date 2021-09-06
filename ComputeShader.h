@@ -34,7 +34,7 @@ public:
             std::cout << "ERROR: Could not read compute shader file: " << &e << std::endl;
         }
         const char *cShader = computeShader.c_str();
-        uint compute;
+        unsigned int compute;
 
         compute = glCreateShader(GL_COMPUTE_SHADER);
         glShaderSource(compute, 1, &cShader, NULL);
@@ -98,7 +98,7 @@ public:
     }
 
     [[maybe_unused]]
-    void setUnsignedInt(const std::string &name, uint value) const {
+    void setUnsignedInt(const std::string &name, unsigned int value) const {
         glUniform1ui(glGetUniformLocation(ID, name.c_str()), value);
     }
 
@@ -122,7 +122,7 @@ private:
     void checkCompileErrors(GLuint shader, ComputeErrorType type) {
         GLint success;
         uint32_t logSize = 1024;
-        GLchar infoLog[logSize];
+        GLchar* infoLog = new char[logSize];
         if (type != ComputeErrorType::PROGRAM) {
             glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
             if (!success) {

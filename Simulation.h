@@ -6,7 +6,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>
-#include <sys/random.h>
+#include <random>
 #include "Window.h"
 #include "Settings.h"
 #include "Shader.h"

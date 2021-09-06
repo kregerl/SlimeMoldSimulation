@@ -148,7 +148,8 @@ private:
     void checkCompileErrors(GLuint shader, ShaderErrorType type) {
         GLint success;
         unsigned int logSize = 1024;
-        GLchar infoLog[logSize];
+        GLchar* infoLog = new char[logSize];
+//        GLchar infoLog[logSize];
         if (type != ShaderErrorType::PROGRAM) {
             glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
             if (!success) {

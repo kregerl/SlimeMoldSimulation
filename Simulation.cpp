@@ -6,16 +6,16 @@ Simulation::Simulation(int width, int height) {
     this->m_window = new Window(width, height, "Slime Mold Simulation");
     this->m_settings = new Settings(this->m_window, this->m_agentSystem);
 
-    this->m_shader = new Shader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/main.vert",
-                                "/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/main.frag");
+    this->m_shader = new Shader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\main.vert",
+                                "C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\main.frag");
 
-    this->m_agentShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/agents.comp");
+    this->m_agentShader = new ComputeShader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\agents.comp");
 
     this->m_agentShader->useSSBO(1, this->m_agentSystem->getNumAgents() * sizeof(Agent),
                                  &this->m_agentSystem->agents[0]);
     this->m_agentShader->useUBO(2, MAX_SPECIES * sizeof(SpeciesSpec), &this->m_agentSystem->speciesSpecs[0]);
-    this->m_effectShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/effects.comp");
-    this->m_colorShader = new ComputeShader("/home/loucas/CLionProjects/SlimeMoldSimulation/shaders/color.comp");
+    this->m_effectShader = new ComputeShader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\effects.comp");
+    this->m_colorShader = new ComputeShader("C:\\Users\\kregerl\\CLionProjects\\SlimeMoldSimulation\\shaders\\color.comp");
 
 
     this->m_simulationFramebuffer = new Framebuffer(width, height, GL_READ_WRITE);
