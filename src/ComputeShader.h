@@ -114,6 +114,11 @@ public:
     }
 
     [[maybe_unused]]
+    void setVec3(const std::string &name, const std::vector<glm::vec3> &values, const GLsizei size) const {
+        glUniform3fv(glGetUniformLocation(ID, name.c_str()), size, glm::value_ptr(values[0]));
+    }
+
+    [[maybe_unused]]
     void setVec3(const std::string &name, float x, float y, float z) const {
         glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
     }

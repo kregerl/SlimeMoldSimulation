@@ -7,19 +7,19 @@ Framebuffer::Framebuffer(int width, int height, GLenum access) : Framebuffer(wid
 }
 
 Framebuffer::Framebuffer(int width, int height, GLenum access, GLuint texture) {
-    glGenFramebuffers(1, &this->m_fbo);
-    this->m_colorTexture = new Texture(width, height, access);
-    this->m_colorTexture->use();
-    this->bind();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, texture, GL_TEXTURE_2D, this->m_colorTexture->id, 0);
-    //    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, this->m_colorTexture->id, 0);
-    this->checkErrors();
-    this->unbind();
+    glGenFramebuffers(1, &m_fbo);
+    m_colorTexture = new Texture(width, height, access);
+    m_colorTexture->use();
+    bind();
+    glFramebufferTexture2D(GL_FRAMEBUFFER, texture, GL_TEXTURE_2D, m_colorTexture->id, 0);
+    //    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_colorTexture->id, 0);
+    checkErrors();
+    unbind();
 }
 
 Framebuffer::~Framebuffer() {
-    glDeleteFramebuffers(1, &this->m_fbo);
-    delete this->m_colorTexture;
+    glDeleteFramebuffers(1, &m_fbo);
+    delete m_colorTexture;
 }
 
 void Framebuffer::checkErrors() {
@@ -29,12 +29,12 @@ void Framebuffer::checkErrors() {
 }
 
 void Framebuffer::bind() {
-    this->m_colorTexture->use();
+    m_colorTexture->use();
     GLenum drawBuffers[1] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(1, drawBuffers);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, this->m_fbo);
-    glViewport(0, 0, this->m_colorTexture->getWidth(), this->m_colorTexture->getHeight());
-//    glViewport(0, 0, this->m_colorTexture->getWidth() / 2, this->m_colorTexture->getHeight() / 2);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
+    glViewport(0, 0, m_colorTexture->getWidth(), m_colorTexture->getHeight());
+//    glViewport(0, 0, m_colorTexture->getWidth() / 2, m_colorTexture->getHeight() / 2);
 }
 
 void Framebuffer::unbind() {
@@ -42,9 +42,9 @@ void Framebuffer::unbind() {
 }
 
 Texture *Framebuffer::getTextureAttachment() const {
-    return this->m_colorTexture;
+    return m_colorTexture;
 }
 
 GLuint Framebuffer::getId() const {
-    return this->m_fbo;
+    return m_fbo;
 }

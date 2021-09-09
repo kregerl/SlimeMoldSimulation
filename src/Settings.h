@@ -5,9 +5,12 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <fstream>
-#include <yaml-cpp/node/node.h>
+#include <filesystem>
+#include <yaml-cpp/yaml.h>
+//#include <yaml-cpp/node/node.h>
 #include <yaml-cpp/node/parse.h>
 #include <yaml-cpp/emitter.h>
 #include <yaml-cpp/stlemitter.h>
@@ -22,6 +25,7 @@
 
 const static std::string spawnPositionNames[] = {"Center", "Circle", "Edges", "Random"};
 const static SpawnPosition spawnPositions[] = {CENTER, CIRCLE, EDGES, RANDOM};
+
 
 const static YAML::Emitter &operator<<(YAML::Emitter &out, const glm::vec3 &vec) {
     std::vector<float> result;
@@ -49,20 +53,18 @@ public:
 
 
     bool m_shouldReset = false;
-    glm::vec3 speciesColor1 = {1.0, 0.0, 0.0};
-    glm::vec3 speciesColor2 = {0.0, 1.0, 0.0};
-    glm::vec3 speciesColor3 = {0.0, 0.0, 1.0};
-
     Settings(Window *window, AgentSystem *system);
 
     ~Settings() = default;
 
     void init();
 
+
     static void draw();
 
     static void shutdown();
 
+    void parseYAML();
 
     [[maybe_unused]] [[nodiscard]]
     glm::vec3 getColor() const;
@@ -106,7 +108,6 @@ public:
 
 
 
-
 private:
     AgentSystem *m_agentSystem;
     Window *m_window;
@@ -115,6 +116,8 @@ private:
     Texture *m_playTexture;
     Texture *m_pauseTexture;
     Texture *m_resetTexture;
+
+    std::string m_preset;
 
 
     bool m_playing = true;
@@ -129,8 +132,9 @@ private:
     float m_diffuseSpeed = 10.0;
     float m_evaporateSpeed = 0.4f;
     int m_sensorSize = 3;
+    char m_presetBuffer[64] = "";
     char *m_numSpecies;
-    char *m_spawnPosition;
+    std::string m_spawnPosition;
     char *m_speciesItems[MAX_SPECIES]{};
 
     void exportSettings();

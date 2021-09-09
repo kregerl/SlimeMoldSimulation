@@ -30,9 +30,9 @@ public:
     double getDeltaTime() const;
 
     [[nodiscard]]
-    bool isPaused() const { return this->m_isPaused; }
+    bool isPaused() const { return m_isPaused; }
 
-    GLFWwindow *getWindow() { return this->m_window; }
+    GLFWwindow *getWindow() { return m_window; }
 
     bool showWindow = true;
 

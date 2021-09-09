@@ -13,15 +13,15 @@ Window::Window(const int width, const int height, const std::string &title, bool
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    this->m_window = glfwCreateWindow(this->m_width, this->m_height, title.c_str(),isFullscreen  ? glfwGetPrimaryMonitor() : nullptr, nullptr);
+    m_window = glfwCreateWindow(m_width, m_height, title.c_str(),isFullscreen  ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 
-    if (this->m_window == nullptr) {
+    if (m_window == nullptr) {
         std::cout << "ERROR: Cant open null util." << std::endl;
         glfwTerminate();
     }
-    glfwMakeContextCurrent(this->m_window);
-    glfwSetFramebufferSizeCallback(this->m_window, framebuffer_size_callback);
-//    glfwSetWindowSizeCallback(this->m_window, window_resize_callback);
+    glfwMakeContextCurrent(m_window);
+    glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+//    glfwSetWindowSizeCallback(m_window, window_resize_callback);
 
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         std::cout << "ERROR: Failed to load GLAD" << std::endl;
@@ -45,36 +45,36 @@ void Window::use() {
 }
 
 void Window::close() {
-    glfwDestroyWindow(this->m_window);
+    glfwDestroyWindow(m_window);
     glfwTerminate();
 }
 
 
 void Window::poll() {
-    glfwSwapBuffers(this->m_window);
+    glfwSwapBuffers(m_window);
     glfwPollEvents();
 }
 
 int Window::getWidth() const {
-    return this->m_width;
+    return m_width;
 }
 
 int Window::getHeight() const {
-    return this->m_height;
+    return m_height;
 }
 
 double Window::getDeltaTime() const {
-    return this->m_deltaTime;
+    return m_deltaTime;
 }
 
 bool Window::shouldClose() {
-    return glfwWindowShouldClose(this->m_window);
+    return glfwWindowShouldClose(m_window);
 }
 
 void Window::processInput() {
-    if (glfwGetKey(this->m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(this->m_window, true);
-    if (glfwGetKey(this->m_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(m_window, true);
+    if (glfwGetKey(m_window, GLFW_KEY_SPACE) == GLFW_PRESS)
         showWindow = true;
 
 }

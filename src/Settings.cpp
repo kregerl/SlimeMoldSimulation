@@ -1,3 +1,4 @@
+#include <cstring>
 #include "Settings.h"
 
 
@@ -12,21 +13,21 @@ Settings::Settings(Window *window, AgentSystem *system) : m_numSpecies("1"), m_a
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window->getWindow(), true);
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
-    std::fill(this->m_agentColor, this->m_agentColor + PICKER_SIZE, 1);
-    std::fill(this->m_effectColor, this->m_effectColor + PICKER_SIZE, 0);
+    std::fill(m_agentColor, m_agentColor + PICKER_SIZE, 1);
+    std::fill(m_effectColor, m_effectColor + PICKER_SIZE, 0);
 
-    this->m_playTexture = new Texture(".\\images\\play32xwhite.png",
-                                      GL_READ_ONLY);
-    this->m_pauseTexture = new Texture(".\\images\\pause32xwhite.png",
-                                       GL_READ_ONLY);
-    this->m_resetTexture = new Texture(
+    m_playTexture = new Texture(".\\images\\play32xwhite.png",
+                                GL_READ_ONLY);
+    m_pauseTexture = new Texture(".\\images\\pause32xwhite.png",
+                                 GL_READ_ONLY);
+    m_resetTexture = new Texture(
             ".\\images\\reset32xwhite.png",
             GL_READ_ONLY);
 
-    this->m_currentTexture = this->m_playTexture;
+    m_currentTexture = m_playTexture;
 
     for (int i = 0; i < MAX_SPECIES; i++) {
-        this->m_speciesItems[i] = strdup(std::to_string(i + 1).c_str());
+        m_speciesItems[i] = strdup(std::to_string(i + 1).c_str());
     }
 
 }
@@ -43,59 +44,77 @@ void Settings::init() {
         ImGui::Begin("Settings", &m_window->showWindow);
 
 
-        this->m_currentTexture = this->m_playing ? this->m_pauseTexture : this->m_playTexture;
+        m_currentTexture = m_playing ? m_pauseTexture : m_playTexture;
 
-        if (ImGui::ImageButton(this->m_currentTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
-            this->m_playing = !this->m_playing;
+        if (ImGui::ImageButton(m_currentTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
+            m_playing = !m_playing;
         }
 
         ImGui::SameLine();
 
-        if (ImGui::ImageButton(this->m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
-            this->m_shouldReset = !this->m_shouldReset;
+        if (ImGui::ImageButton(m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
+            m_shouldReset = !m_shouldReset;
         }
 
-        if (ImGui::BeginCombo("Spawn Position", this->m_spawnPosition)) {
+        ImGui::SameLine();
+
+        ImGui::PushItemWidth(150.0f);
+        if (ImGui::BeginCombo("Spawn Position", m_spawnPosition.c_str())) {
             for (int i = 0; i < spawnPositionNames->size(); i++) {
                 std::string name = spawnPositionNames[i];
                 if (ImGui::Selectable(name.c_str())) {
-                    this->m_spawnPosition = strdup(name.c_str());
-                    this->m_agentSystem->setSpawnPos(spawnPositions[i]);
+                    m_spawnPosition = strdup(name.c_str());
+                    m_agentSystem->setSpawnPos(spawnPositions[i]);
                 }
             }
             ImGui::EndCombo();
         }
 
+        if (ImGui::BeginCombo("Presets", m_preset.c_str())) {
+            for (auto &path: std::filesystem::directory_iterator(".\\settings")) {
+                std::filesystem::path fileName = path.path().filename();
+                if (ImGui::Selectable(fileName.string().c_str())) {
+                    m_preset = fileName.string();
+                    m_presetBuffer[0] = '\0';
+                }
+            }
+
+            ImGui::EndCombo();
+        }
+
+        ImGui::InputText("Preset Name", m_presetBuffer, IM_ARRAYSIZE(m_presetBuffer));
+
         if (ImGui::Button("Export Settings")) {
             exportSettings();
-            std::cout << "Here" << std::endl;
         }
+        ImGui::PopItemWidth();
 
 
         if (ImGui::CollapsingHeader("Effect Settings")) {
-            ImGui::Checkbox("Blur", &this->m_blur);
-            ImGui::SliderFloat("Diffuse Speed", &this->m_diffuseSpeed, 0.0f, 25.0f);
-            ImGui::SliderFloat("Evaporate Speed", &this->m_evaporateSpeed, 0.0f, 2.0f);
-            if (this->m_blur && this->m_diffuseSpeed > 0 && this->m_evaporateSpeed > 0) {
-                ImGui::ColorEdit3("Color Mod", this->m_effectColor,
+            ImGui::Checkbox("Blur", &m_blur);
+            ImGui::SliderFloat("Diffuse Speed", &m_diffuseSpeed, 0.0f, 25.0f);
+            ImGui::SliderFloat("Evaporate Speed", &m_evaporateSpeed, 0.0f, 2.0f);
+            if (m_blur && m_diffuseSpeed > 0 && m_evaporateSpeed > 0) {
+                ImGui::ColorEdit3("Color Mod", m_effectColor,
                                   ImGuiColorEditFlags_NoPicker | ImGuiColorEditFlags_Float);
             }
         }
 
 
         if (ImGui::CollapsingHeader("Agent Settings")) {
-            if (ImGui::BeginCombo("Number of Species", this->m_numSpecies)) {
-                for (auto &m_speciesItem : this->m_speciesItems) {
+            if (ImGui::BeginCombo("Number of Species", m_numSpecies)) {
+                std::cout << m_numSpecies << std::endl;
+                for (auto &m_speciesItem: m_speciesItems) {
                     if (ImGui::Selectable(m_speciesItem)) {
-                        this->m_numSpecies = m_speciesItem;
-                        this->m_agentSystem->currentNumSpecies = *this->m_numSpecies - '0';
+                        m_numSpecies = m_speciesItem;
+                        m_agentSystem->currentNumSpecies = *m_numSpecies - '0';
                     }
                 }
                 ImGui::EndCombo();
             }
             ImGui::Text("Species Settings");
-            sscanf(this->m_numSpecies, "%d", &this->m_agentSystem->currentNumSpecies);
-            for (int i = 0; i < this->m_agentSystem->currentNumSpecies; i++) {
+            sscanf(m_numSpecies, "%d", &m_agentSystem->currentNumSpecies);
+            for (int i = 0; i < m_agentSystem->currentNumSpecies; i++) {
                 if (ImGui::CollapsingHeader(std::to_string(i + 1).c_str())) {
                     std::string speed = "Speed";
                     std::string turnSpeed = "Turn Speed";
@@ -103,20 +122,20 @@ void Settings::init() {
                     std::string sensorAngle = "Sensor Angle";
                     std::string sensorSize = "Sensor Size";
                     std::string speciesColor = "Species Color";
-                    ImGui::SliderFloat(speed.append(i, ' ').c_str(), &this->m_agentSystem->speciesSpecs[i].speed, 0.0f,
+                    ImGui::SliderFloat(speed.append(i, ' ').c_str(), &m_agentSystem->speciesSpecs[i].speed, 0.0f,
                                        300.0f);
                     ImGui::SliderFloat(turnSpeed.append(i, ' ').c_str(),
-                                       &this->m_agentSystem->speciesSpecs[i].turnSpeed, 0.0f, 300.0f);
+                                       &m_agentSystem->speciesSpecs[i].turnSpeed, 0.0f, 300.0f);
                     ImGui::SliderFloat(sensorOffset.append(i, ' ').c_str(),
-                                       &this->m_agentSystem->speciesSpecs[i].sensorOffsetDistance,
+                                       &m_agentSystem->speciesSpecs[i].sensorOffsetDistance,
                                        0.0f, 50.0f);
                     ImGui::SliderFloat(sensorAngle.append(i, ' ').c_str(),
-                                       &this->m_agentSystem->speciesSpecs[i].sensorAngleOffset, 0.0f,
+                                       &m_agentSystem->speciesSpecs[i].sensorAngleOffset, 0.0f,
                                        2.0f);
                     ImGui::SliderInt(sensorSize.append(i, ' ').c_str(),
-                                     &this->m_agentSystem->speciesSpecs[i].sensorSize, 0, 10);
+                                     &m_agentSystem->speciesSpecs[i].sensorSize, 0, 10);
                     ImGui::ColorEdit3(speciesColor.append(i, ' ').c_str(),
-                                      i == 0 ? &speciesColor1[0] : i == 1 ? &speciesColor2[0] : &speciesColor3[0]);
+                                      glm::value_ptr(m_agentSystem->speciesSpecs[i].color));
                 }
             }
 
@@ -128,6 +147,7 @@ void Settings::init() {
     ImGui::Render();
 }
 
+
 void Settings::draw() {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -136,6 +156,52 @@ void Settings::shutdown() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+}
+
+void Settings::parseYAML() {
+    if (!m_preset.empty()) {
+        YAML::Node settings = YAML::LoadFile(std::string("settings\\").append(m_preset));
+        YAML::Node effectSettings = settings["Effect Settings"];
+        YAML::Node agentSettings = settings["Agent Settings"];
+
+        // Load the spawn pos
+        m_spawnPosition = settings["Spawn Position"].as<std::string>();
+        m_agentSystem->setSpawnPos(spawnPositions[spawnPositionNames->find(m_spawnPosition)]);
+
+        // Load effect Settings
+        m_blur = effectSettings["Blur"].as<bool>();
+        m_diffuseSpeed = effectSettings["Diffuse Speed"].as<float>();
+        m_evaporateSpeed = effectSettings["Evaporate Speed"].as<float>();
+        YAML::Node colorMod = effectSettings["Color Mod"];
+        for (YAML::detail::iterator_value num: colorMod) {
+            for (int i = 0; i < PICKER_SIZE; i++) {
+                m_effectColor[i] = num[i].as<float>();
+            }
+        }
+        // TODO: Not working since the char has to be a char*. Change m_numSpecies to a char instead of a char*?
+        int numSpecies = agentSettings["Number of Species"].as<int>();
+        m_numSpecies = m_speciesItems[numSpecies - 1];
+        m_agentSystem->currentNumSpecies = numSpecies;
+
+        for (int i = 0; i < numSpecies; i++) {
+            YAML::Node speciesSettings = agentSettings[std::string("Species ").append(m_speciesItems[i])];
+            SpeciesSpec spec;
+            spec.speed = speciesSettings["Speed"].as<float>();
+            spec.turnSpeed = speciesSettings["Turn Speed"].as<float>();
+            spec.sensorOffsetDistance = speciesSettings["Sensor Offset"].as<float>();
+            spec.sensorAngleOffset = speciesSettings["Sensor Angle"].as<float>();
+            spec.sensorSize = speciesSettings["Sensor Size"].as<int>();
+            YAML::Node specColor = speciesSettings["Color"];
+            for (YAML::detail::iterator_value num: specColor) {
+                for (int j = 0; j < PICKER_SIZE; j++) {
+                    spec.color[j] = num[j].as<float>();
+                }
+            }
+            m_agentSystem->speciesSpecs.at(i) = spec;
+        }
+    }
+
+
 }
 
 void Settings::exportSettings() {
@@ -156,7 +222,6 @@ void Settings::exportSettings() {
         emitter << YAML::Key << "Species " + std::to_string(i + 1);
         // TODO: Doesnt work with color yet as specs need to hold the correct agent color instead of individual vars.
         emitter << YAML::Value << m_agentSystem->speciesSpecs.at(i);
-        emitter << YAML::EndMap;
     }
 
     emitter << YAML::EndMap;
@@ -164,63 +229,66 @@ void Settings::exportSettings() {
 
     emitter << YAML::EndMap;
     create_directory(std::filesystem::current_path().append("settings"));
-    std::ofstream fout(std::filesystem::current_path().append("settings\\settings.yaml"));
-    fout << emitter.c_str();
+    if (!std::string(m_presetBuffer).empty()) {
+        std::basic_ofstream<char> fout(std::filesystem::current_path().append(
+                std::string("settings\\").append(m_presetBuffer).append(".yaml")).string());
+        fout << emitter.c_str();
+    }
 
 
 }
 
 
 glm::vec3 Settings::getColor() const {
-    return {this->m_agentColor[0], this->m_agentColor[1], this->m_agentColor[2]};
+    return {m_agentColor[0], m_agentColor[1], m_agentColor[2]};
 };
 
 
 glm::vec3 Settings::getColorMod() const {
-    return {this->m_effectColor[0], this->m_effectColor[1], this->m_effectColor[2]};
+    return {m_effectColor[0], m_effectColor[1], m_effectColor[2]};
 }
 
 
 float Settings::getSpeed() const {
-    return this->m_simulationSpeed;
+    return m_simulationSpeed;
 }
 
 float Settings::getSensorAngle() const {
-    return this->m_sensorAngle;
+    return m_sensorAngle;
 }
 
 float Settings::getSensorOffsetDistance() const {
-    return this->m_sensorOffsetDistance;
+    return m_sensorOffsetDistance;
 }
 
 float Settings::getTurnSpeed() const {
-    return this->m_turnSpeed;
+    return m_turnSpeed;
 }
 
 float Settings::getDiffuseSpeed() const {
-    return this->m_diffuseSpeed;
+    return m_diffuseSpeed;
 }
 
 float Settings::getEvaporateSpeed() const {
-    return this->m_evaporateSpeed;
+    return m_evaporateSpeed;
 }
 
 int Settings::getSensorSize() const {
-    return this->m_sensorSize;
+    return m_sensorSize;
 }
 
 bool Settings::shouldBlur() const {
-    return this->m_blur;
+    return m_blur;
 }
 
 bool Settings::isRunning() const {
-    return this->m_playing;
+    return m_playing;
 }
 
 void Settings::setPlaying(bool playing) {
-    this->m_playing = playing;
+    m_playing = playing;
 }
 
 bool Settings::shouldReset() const {
-    return this->m_shouldReset;
+    return m_shouldReset;
 }

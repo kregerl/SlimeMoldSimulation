@@ -8,21 +8,18 @@
 layout (local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
 
 layout (binding = 0, rgba32f) uniform image2D image;
-uniform vec3 speciesColor1;
-uniform vec3 speciesColor2;
-uniform vec3 speciesColor3;
-
+uniform vec3 colors[MAX_COLORS];
 
 void main() {
     ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
     vec4 original = imageLoad(image, coords);
 
     if (original.rgb == SPECIES_COLOR1) {
-        original = vec4(speciesColor1, original.a);
+        original = vec4(colors[0], original.a);
     } else if (original.rgb == SPECIES_COLOR2) {
-        original = vec4(speciesColor2, original.a);
+        original = vec4(colors[1], original.a);
     } else if (original.rgb == SPECIES_COLOR3) {
-        original = vec4(speciesColor3, original.a);
+        original = vec4(colors[2], original.a);
     }
 
     imageStore(image, coords, original);

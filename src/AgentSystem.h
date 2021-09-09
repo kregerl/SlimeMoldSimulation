@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <random>
+#include <iostream>
 
 #define TWO_PI 6.2831853f
 #define MAX_SPECIES 3
@@ -12,7 +13,6 @@ struct Agent {
     float x, y;
     float angle;
 
-    [[maybe_unused]]
     int speciesIndex;
 };
 
@@ -21,11 +21,16 @@ enum SpawnPosition {
 };
 
 struct SpeciesSpec {
+    SpeciesSpec() {}
+
+    SpeciesSpec(glm::vec3 color) : color(color), speed(80.0f), turnSpeed(100.0f), sensorOffsetDistance(16.0f),
+                                   sensorAngleOffset(0.6f), sensorSize(3) {}
     glm::vec3 color;
     float speed;
     float turnSpeed;
     float sensorOffsetDistance;
     float sensorAngleOffset;
+
     int sensorSize;
 };
 
@@ -48,8 +53,10 @@ public:
 
     void setSpawnPos(SpawnPosition spawnPos);
 
+    std::vector<glm::vec3> getSpeciesColors();
+
 private:
-    const SpeciesSpec DEFAULT_SPECIES_SPEC = SpeciesSpec{glm::vec3(1.0f, 1.0f, 1.0f), 80.0f, 100.0f, 16.0f, 0.6f, 3};
+//    const SpeciesSpec DEFAULT_SPECIES_SPEC = SpeciesSpec{glm::vec3(1.0f, 1.0f, 1.0f), 80.0f, 100.0f, 16.0f, 0.6f, 3};
     const size_t m_numAgents;
     SpawnPosition m_spawnPos;
 

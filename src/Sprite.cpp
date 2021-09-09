@@ -38,12 +38,12 @@ Sprite::Sprite(float x0, float y0, float x1, float y1, GLuint textureId) : m_tex
 }
 
 Sprite::~Sprite() {
-    glDeleteBuffers(1, &this->m_vbo);
-    glDeleteVertexArrays(1, &this->m_vao);
+    glDeleteBuffers(1, &m_vbo);
+    glDeleteVertexArrays(1, &m_vao);
 }
 
 void Sprite::draw() const {
-    glBindTexture(GL_TEXTURE_2D, this->m_textureId);
+    glBindTexture(GL_TEXTURE_2D, m_textureId);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
