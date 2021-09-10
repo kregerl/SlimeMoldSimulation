@@ -50,7 +50,7 @@ void Simulation::run() {
                 m_settings->parseYAML();
                 m_settings->m_shouldReset = !m_settings->m_shouldReset;
                 ComputeShader::clearSSBO(1);
-                m_settings->setPlaying(false);
+                m_settings->setPlaying(m_settings->shouldRandomizePresets());
                 m_agentSystem->init(m_window->getWidth(), m_window->getHeight());
                 m_agentShader->useSSBO(1, m_agentSystem->getNumAgents() * sizeof(Agent),
                                        &m_agentSystem->agents[0]);

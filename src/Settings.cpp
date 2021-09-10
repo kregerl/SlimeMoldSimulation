@@ -41,22 +41,33 @@ void Settings::init() {
 
     // Add content to window
     if (m_window->showWindow) {
+        if (m_randomizePresets && m_window->getTimePassed() >= m_randomInterval) {
+            m_shouldReset = true;
+            m_window->resetTimePassed();
+            // TODO: Choose a random preset and set that as the active preset.
+        }
+
         ImGui::Begin("Settings", &m_window->showWindow);
 
 
         m_currentTexture = m_playing ? m_pauseTexture : m_playTexture;
 
-        if (ImGui::ImageButton(m_currentTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
-            m_playing = !m_playing;
+        // Hide play / reset button if randomize is on.
+        if (!m_randomizePresets) {
+
+            if (ImGui::ImageButton(m_currentTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
+                m_playing = !m_playing;
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::ImageButton(m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
+                m_shouldReset = !m_shouldReset;
+            }
+
+            ImGui::SameLine();
         }
 
-        ImGui::SameLine();
-
-        if (ImGui::ImageButton(m_resetTexture->getImGuiTextureId(), IMAGE_BUTTON_SIZE)) {
-            m_shouldReset = !m_shouldReset;
-        }
-
-        ImGui::SameLine();
 
         ImGui::PushItemWidth(150.0f);
         if (ImGui::BeginCombo("Spawn Position", m_spawnPosition.c_str())) {
@@ -70,7 +81,19 @@ void Settings::init() {
             ImGui::EndCombo();
         }
 
+        if (ImGui::Checkbox("Randomize Presets", &m_randomizePresets)) {
+            m_playing = true;
+            m_window->startTimer();
+        }
+        ImGui::SameLine();
+        ImGui::DragInt("Reset Interval", &m_randomInterval, 1, 1, 300);
+
+
         if (ImGui::BeginCombo("Presets", m_preset.c_str())) {
+            if (ImGui::Selectable("")) {
+                m_preset = "";
+                m_presetBuffer[0] = '\0';
+            }
             for (auto &path: std::filesystem::directory_iterator(".\\settings")) {
                 std::filesystem::path fileName = path.path().filename();
                 if (ImGui::Selectable(fileName.string().c_str())) {
@@ -178,7 +201,6 @@ void Settings::parseYAML() {
                 m_effectColor[i] = num[i].as<float>();
             }
         }
-        // TODO: Not working since the char has to be a char*. Change m_numSpecies to a char instead of a char*?
         int numSpecies = agentSettings["Number of Species"].as<int>();
         m_numSpecies = m_speciesItems[numSpecies - 1];
         m_agentSystem->currentNumSpecies = numSpecies;
@@ -220,7 +242,6 @@ void Settings::exportSettings() {
     emitter << YAML::Key << "Number of Species" << YAML::Value << m_agentSystem->currentNumSpecies;
     for (int i = 0; i < m_agentSystem->currentNumSpecies; i++) {
         emitter << YAML::Key << "Species " + std::to_string(i + 1);
-        // TODO: Doesnt work with color yet as specs need to hold the correct agent color instead of individual vars.
         emitter << YAML::Value << m_agentSystem->speciesSpecs.at(i);
     }
 
@@ -291,4 +312,8 @@ void Settings::setPlaying(bool playing) {
 
 bool Settings::shouldReset() const {
     return m_shouldReset;
+}
+
+bool Settings::shouldRandomizePresets() const {
+    return m_randomizePresets;
 }

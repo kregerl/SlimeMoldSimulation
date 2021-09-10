@@ -106,6 +106,9 @@ public:
     [[maybe_unused]] [[nodiscard]]
     bool shouldReset() const;
 
+    [[maybe_unused]] [[nodiscard]]
+    bool shouldRandomizePresets() const;
+
 
 
 private:
@@ -123,6 +126,7 @@ private:
     bool m_playing = true;
     bool m_showWindow = true;
     bool m_blur = true;
+    bool m_randomizePresets = false;
     float m_agentColor[PICKER_SIZE]{};
     float m_effectColor[PICKER_SIZE]{};
     float m_simulationSpeed = 80.0f;
@@ -132,6 +136,7 @@ private:
     float m_diffuseSpeed = 10.0;
     float m_evaporateSpeed = 0.4f;
     int m_sensorSize = 3;
+    int m_randomInterval = 30;
     char m_presetBuffer[64] = "";
     char *m_numSpecies;
     std::string m_spawnPosition;

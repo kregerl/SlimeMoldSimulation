@@ -1,3 +1,7 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
   "C"
@@ -21,15 +25,15 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../yaml-cpp/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/AgentSystem.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/AgentSystem.cpp.obj"
-  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Framebuffer.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Framebuffer.cpp.obj"
-  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Settings.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Settings.cpp.obj"
-  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Simulation.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Simulation.cpp.obj"
-  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Sprite.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Sprite.cpp.obj"
-  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Texture.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Texture.cpp.obj"
-  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Window.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/Window.cpp.obj"
   "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/include/stb_image.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/include/stb_image.cpp.obj"
-  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/main.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/main.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/AgentSystem.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/src/AgentSystem.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Framebuffer.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/src/Framebuffer.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Settings.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/src/Settings.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Simulation.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/src/Simulation.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Sprite.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/src/Sprite.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Texture.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/src/Texture.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Window.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/src/Window.cpp.obj"
+  "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/main.cpp" "C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir/src/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "MSVC")
 
@@ -43,6 +47,10 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "../glm"
   "../yaml-cpp/include"
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
   )
 
 # Targets to which this target links.

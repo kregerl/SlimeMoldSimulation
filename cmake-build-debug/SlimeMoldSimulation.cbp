@@ -79,6 +79,26 @@
 					<DistClean command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="copy-shaders">
+				<Option working_dir="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 copy-shaders"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="copy-assets">
+				<Option working_dir="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 copy-assets"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\kregerl\CLionProjects\SlimeMoldSimulation\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="install/local">
 				<Option working_dir="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug"/>
 				<Option type="4"/>
@@ -1960,54 +1980,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/AgentSystem.cpp">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/AgentSystem.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/ComputeShader.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Framebuffer.cpp">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Framebuffer.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Settings.cpp">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Settings.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Shader.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Simulation.cpp">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Simulation.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Sprite.cpp">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Sprite.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Texture.cpp">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Texture.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Window.cpp">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/Window.h">
-			<Option target="SlimeMoldSimulation"/>
-		</Unit>
 		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/glfw/src/glfw_config.h">
 			<Option target="glfw"/>
 		</Unit>
@@ -2324,7 +2296,55 @@
 		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/include/stb_image.h">
 			<Option target="SlimeMoldSimulation"/>
 		</Unit>
-		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/main.cpp">
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/AgentSystem.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/AgentSystem.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/ComputeShader.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Framebuffer.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Framebuffer.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Settings.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Settings.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Shader.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Simulation.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Simulation.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Sprite.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Sprite.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Texture.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Texture.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Window.cpp">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/Window.h">
+			<Option target="SlimeMoldSimulation"/>
+		</Unit>
+		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/src/main.cpp">
 			<Option target="SlimeMoldSimulation"/>
 		</Unit>
 		<Unit filename="C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/yaml-cpp/src/binary.cpp">

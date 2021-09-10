@@ -30,16 +30,26 @@ public:
     double getDeltaTime() const;
 
     [[nodiscard]]
+    double getTimePassed() const;
+
+    [[nodiscard]]
+    void resetTimePassed();
+
+    [[nodiscard]]
     bool isPaused() const { return m_isPaused; }
 
     GLFWwindow *getWindow() { return m_window; }
 
     bool showWindow = true;
 
+    void startTimer();
+
 private:
     bool m_isPaused = false;
     const int m_width, m_height;
-    double m_deltaTime = 0.0, m_prevFrame = 0.0;
+    double m_deltaTime = 0.0f, m_prevFrame = 0.0f;
+    // Used for configurable timer.
+    double m_timerStart = 0.0f, m_timePassed = 0.0f;
     GLFWwindow *m_window;
 
     void processInput();

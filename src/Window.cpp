@@ -41,6 +41,13 @@ void Window::use() {
     m_deltaTime = currentFrame - m_prevFrame;
     m_prevFrame = currentFrame;
 
+//    std::cout << "Start time: "  << m_timerStart << std::endl;
+//    std::cout << "glfw Time: "  << currentFrame << std::endl;
+//    bool test = currentFrame - m_timerStart >= 30.0f;
+//    std::cout << "Time difference: " << test << std::endl;
+    m_timePassed = currentFrame - m_timerStart;
+
+
     processInput();
 }
 
@@ -77,5 +84,18 @@ void Window::processInput() {
     if (glfwGetKey(m_window, GLFW_KEY_SPACE) == GLFW_PRESS)
         showWindow = true;
 
+}
+
+void Window::startTimer() {
+    m_timerStart = glfwGetTime();
+}
+
+double Window::getTimePassed() const {
+    return m_timePassed;
+}
+
+void Window::resetTimePassed() {
+    m_timePassed = 0;
+    m_timerStart = glfwGetTime();
 }
 

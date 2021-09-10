@@ -1,4 +1,6 @@
 C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/SlimeMoldSimulation.dir
+C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/copy-shaders.dir
+C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/copy-assets.dir
 C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/install/local.dir
 C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/install.dir
 C:/Users/kregerl/CLionProjects/SlimeMoldSimulation/cmake-build-debug/CMakeFiles/edit_cache.dir
