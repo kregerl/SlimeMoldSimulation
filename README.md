@@ -44,6 +44,3 @@ The simulation has a few basic controls that can be manipulated at runtime:
 
 I would like to add brushes that allow the user to create new agents using the mouse. When the mouse is clicked and the
 simulation is running I would like to push the agents away from the mouse.  
-Make the simulation use working directories instead of absolute paths.  
-Add the ability to export the simulation settings to a YAML file and reload them into the simulation.  
-Add a configurable time interval that will cycle through the saved settings.   
